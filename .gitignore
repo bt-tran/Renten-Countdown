@@ -1,0 +1,3 @@
+
+# Claude Code worktrees (parallel sessions) — never part of the main checkout
+.claude/worktrees/
