@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
   <title>Renten Countdown by Turbo-Oma — der ehrliche Countdown zur Rente</title>
-  <meta name="description" content="Innerlich längst in Rente, körperlich noch im Büro? Der ehrliche Countdown zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.">
+  <meta name="description" content="Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.">
   <link rel="canonical" href="https://renten-countdown.de/">
   <link rel="icon" href="assets/icon-512.png">
   <link rel="apple-touch-icon" href="assets/icon-512.png">
@@ -14,7 +14,7 @@
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="Renten Countdown">
   <meta property="og:title" content="Renten Countdown by Turbo-Oma">
-  <meta property="og:description" content="Noch nicht in Rente, aber schon im Mindset. Der ehrliche Countdown bis zur Rente.">
+  <meta property="og:description" content="Noch nicht in Rente. Aber innerlich längst raus. Der ehrliche Countdown bis zur Rente.">
   <meta property="og:url" content="https://renten-countdown.de/">
   <meta property="og:image" content="https://renten-countdown.de/assets/icon-512.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -327,9 +327,9 @@
       <div class="hero-grid">
         <div>
           <p class="eyebrow">Renten Countdown by Turbo-Oma</p>
-          <h1>Noch nicht in&nbsp;Rente,<br><span class="flip">aber schon im Mindset.</span></h1>
+          <h1>Noch nicht in&nbsp;Rente.<br><span class="flip">Aber innerlich längst raus.</span></h1>
           <p class="lede">
-            Innerlich längst in Rente, körperlich noch im Büro? Der ehrliche Countdown
+            Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown
             zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.
           </p>
 
@@ -584,9 +584,12 @@
       "use strict";
 
       // ── Konfiguration ──────────────────────────────────────────────────
-      // Sobald die Android-App live ist: ANDROID_LIVE auf true — das ist der
-      // einzige nötige Handgriff. Es schaltet beide „Bald"-Buttons auf echte
-      // Play-Store-Links UND die zugehörige FAQ-Antwort um.
+      // Sobald die Android-App live ist: ANDROID_LIVE auf true. Das schaltet
+      // beide „Bald"-Buttons auf echte Play-Store-Links um und blendet die
+      // zugehörige FAQ-Antwort um.
+      // ACHTUNG: derselbe Schalter steht ein zweites Mal in verschenken.html.
+      // Beide Dateien umstellen — sonst bleibt die Verschenk-Seite auf „Bald"
+      // stehen, während die Startseite schon Android anbietet.
       var ANDROID_LIVE    = false;
       var ANDROID_PACKAGE = "de.tranbao.rentencountdown";
       var PLAY_STORE_URL  = "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE;
