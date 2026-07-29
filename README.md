@@ -10,7 +10,7 @@ Der ehrliche Countdown bis zur Rente.
 
 ![Plattform](https://img.shields.io/badge/Plattform-iOS%20%7C%20Android-352515)
 &nbsp;![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)
-&nbsp;![Status](https://img.shields.io/badge/Status-Bald%20verf%C3%BCgbar-9C7A2E)
+&nbsp;![Status](https://img.shields.io/badge/Status-iOS%20live%20%C2%B7%20Android%20folgt-9C7A2E)
 &nbsp;![Lizenz](https://img.shields.io/badge/Lizenz-propriet%C3%A4r-8B1A1A)
 
 **[Website](https://renten-countdown.de/)** · **[Datenschutz](https://renten-countdown.de/datenschutz.html)** · **[Impressum](https://renten-countdown.de/impressum.html)**
@@ -64,10 +64,11 @@ Dieses Repo enthält die **offizielle Website** zur App, veröffentlicht über G
 | Seite | Zweck |
 |---|---|
 | [`docs/index.html`](docs/index.html) | Smart-Link — erkennt iOS/Android und leitet zum passenden Store weiter |
+| [`docs/verschenken.html`](docs/verschenken.html) | Geschenkseite mit eigenem Vorschaubild, Anlass über `?anlass=` |
 | [`docs/datenschutz.html`](docs/datenschutz.html) | Datenschutzerklärung |
 | [`docs/impressum.html`](docs/impressum.html) | Impressum |
 
-<sub>Hinweis für später: Sobald die App live ist, in <code>docs/index.html</code> die Store-Weiterleitung über <code>APPLE_APP_ID</code> bzw. <code>ANDROID_LIVE</code> aktivieren.</sub>
+<sub>Hinweis für später: Sobald die Android-App live ist, in <code>docs/index.html</code> <em>und</em> <code>docs/verschenken.html</code> je <code>ANDROID_LIVE</code> auf <code>true</code> setzen — das schaltet die „Bald"-Buttons auf echte Play-Store-Links. Die iOS-Seite ist bereits aktiv.</sub>
 
 ## Datenschutz
 
@@ -75,7 +76,7 @@ Renten Countdown erhebt **keine personenbezogenen Daten**: kein Konto, kein Trac
 
 ## Verfügbarkeit
 
-Bald im App Store und im Play Store — **einmaliger Kauf für 0,99 €, kein Abo** (plus optionaler Kaffee-Tipp für die Oma). Bis dahin führt die [Website](https://renten-countdown.de/) automatisch zum passenden Store, sobald er bereitsteht.
+Im [App Store](https://apps.apple.com/de/app/id6779786185) erhältlich — **einmaliger Kauf für 0,99 €, kein Abo** (plus optionaler Kaffee-Tipp für die Oma). Die Android-Fassung folgt; bis dahin führt die [Website](https://renten-countdown.de/) iPhone-Besucher direkt in den Store und Android-Besucher auf den Hinweis „bald".
 
 ## Impressum & Kontakt
 
