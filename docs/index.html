@@ -584,13 +584,13 @@
       "use strict";
 
       // ── Konfiguration ──────────────────────────────────────────────────
-      // Sobald die Android-App live ist: ANDROID_LIVE auf true. Das schaltet
-      // beide „Bald"-Buttons auf echte Play-Store-Links um und blendet die
-      // zugehörige FAQ-Antwort um.
+      // Die Android-App ist im Play Store — ANDROID_LIVE steht deshalb auf
+      // true. Das schaltet beide „Bald"-Buttons auf echte Play-Store-Links um
+      // und blendet die zugehörige FAQ-Antwort um.
       // ACHTUNG: derselbe Schalter steht ein zweites Mal in verschenken.html.
-      // Beide Dateien umstellen — sonst bleibt die Verschenk-Seite auf „Bald"
-      // stehen, während die Startseite schon Android anbietet.
-      var ANDROID_LIVE    = false;
+      // Beide Dateien müssen denselben Wert tragen — sonst widersprechen sich
+      // die zwei Seiten.
+      var ANDROID_LIVE    = true;
       var ANDROID_PACKAGE = "de.tranbao.rentencountdown";
       var PLAY_STORE_URL  = "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE;
 

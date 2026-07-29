@@ -433,10 +433,11 @@
       "use strict";
 
       // ── Store-Buttons (identisch zur index.html) ───────────────────────
-      // Sobald die Android-App live ist: ANDROID_LIVE auf true.
+      // Die Android-App ist im Play Store — ANDROID_LIVE steht deshalb auf true.
       // ACHTUNG: derselbe Schalter steht ein zweites Mal in index.html.
-      // Beide Dateien umstellen — sonst widersprechen sich die zwei Seiten.
-      var ANDROID_LIVE    = false;
+      // Beide Dateien müssen denselben Wert tragen — sonst widersprechen sich
+      // die zwei Seiten.
+      var ANDROID_LIVE    = true;
       var ANDROID_PACKAGE = "de.tranbao.rentencountdown";
       var PLAY_STORE_URL  = "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE;
 
