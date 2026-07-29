@@ -13,7 +13,7 @@ Der ehrliche Countdown bis zur Rente.
 &nbsp;![Status](https://img.shields.io/badge/Status-live%20in%20beiden%20Stores-9C7A2E)
 &nbsp;![Lizenz](https://img.shields.io/badge/Lizenz-propriet%C3%A4r-8B1A1A)
 
-**[Website](https://renten-countdown.de/)** · **[Datenschutz](https://renten-countdown.de/datenschutz.html)** · **[Impressum](https://renten-countdown.de/impressum.html)**
+**[Website](https://renten-countdown.de/)** · **[Datenschutz](https://renten-countdown.de/datenschutz)** · **[Impressum](https://renten-countdown.de/impressum)**
 
 </div>
 
@@ -70,9 +70,11 @@ Dieses Repo enthält die **offizielle Website** zur App, veröffentlicht über G
 
 <sub>Beide Stores sind aktiv: <code>docs/index.html</code> <em>und</em> <code>docs/verschenken.html</code> tragen je <code>ANDROID_LIVE = true</code>. Der Schalter steht bewusst zweimal — beide Dateien müssen denselben Wert tragen, sonst widersprechen sich die Seiten.</sub>
 
+<sub><strong>URL-Konvention:</strong> nach außen zeigt jede Adresse ohne <code>.html</code> — <code>/verschenken</code>, <code>/datenschutz</code>, <code>/impressum</code>. GitHub Pages löst das direkt auf die Datei auf (kein Redirect, Query-Parameter bleiben erhalten), und die App verlinkt genau diese Form. Gilt für <code>canonical</code>, <code>og:url</code> und die interne Navigation. Preis dafür: die Seiten navigieren nur über den Pages-Server, nicht per Doppelklick über <code>file://</code>.</sub>
+
 ## Datenschutz
 
-Renten Countdown erhebt **keine personenbezogenen Daten**: kein Konto, kein Tracking, keine Werbung. Alles, was du eingibst, bleibt lokal auf deinem Gerät. Details in der [Datenschutzerklärung](https://renten-countdown.de/datenschutz.html).
+Renten Countdown erhebt **keine personenbezogenen Daten**: kein Konto, kein Tracking, keine Werbung. Alles, was du eingibst, bleibt lokal auf deinem Gerät. Details in der [Datenschutzerklärung](https://renten-countdown.de/datenschutz).
 
 ## Verfügbarkeit
 
@@ -82,7 +84,7 @@ Im [App Store](https://apps.apple.com/de/app/id6779786185) und im [Play Store](h
 
 Bao Anh Tran · Nürnberg · [traja.projects@gmail.com](mailto:traja.projects@gmail.com)
 
-Vollständige Angaben im [Impressum](https://renten-countdown.de/impressum.html).
+Vollständige Angaben im [Impressum](https://renten-countdown.de/impressum).
 
 ## Lizenz
 
