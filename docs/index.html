@@ -7,8 +7,16 @@
   <title>Renten Countdown by Turbo-Oma — der ehrliche Countdown zur Rente</title>
   <meta name="description" content="Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.">
   <link rel="canonical" href="https://renten-countdown.de/">
-  <link rel="icon" href="assets/icon-512.png">
-  <link rel="apple-touch-icon" href="assets/icon-512.png">
+  <!-- Bildmarke unverändert — nur die Zustellung. /favicon.ico beantwortet die
+       Anfrage, die Browser, Lesezeichen und Link-Vorschauen blind stellen (lief
+       vorher auf 404), und die 10 kB der ICO sind auch dann da, wenn das
+       512-px-PNG mit 283 kB als niedrig priorisierter Request wegfällt —
+       GitHub Pages liefert nur max-age=600, es wird also ständig neu geholt.
+       Absolute Pfade, weil die Seiten unter /impressum, /datenschutz usw. liegen.
+       Derselbe Block steht in allen vier HTML-Dateien. -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" href="/assets/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
@@ -191,20 +199,35 @@
       color: var(--ink);
     }
 
+    /* Sobald der Hero stapelt, wandert die Oma über die Schlagzeile und wird
+       zum breiten Streifen. Untereinander gestellt begann sie erst bei 635 px
+       und lag auf dem iPhone SE komplett unter dem Fold — als Streifen kostet
+       sie rund 120 px und ist ohne Scrollen da. object-position hält Gesicht
+       und Buggy im Ausschnitt, wenn oben und unten weggeschnitten wird. */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-art { order: -1; }
+      .hero-art img {
+        aspect-ratio: 5 / 2;
+        object-fit: cover;
+        object-position: center 26%;
+      }
     }
     /* Auf dem Handy sitzen 64/88px-Abstände zu locker: der obere Bereich
        driftet unter dem Fold weg. Enger stellen, ohne den Rhythmus zu kippen. */
     @media (max-width: 560px) {
       .section { padding: 56px 0; }
       .section-head { margin-bottom: 32px; }
-      .hero { padding-top: 34px; padding-bottom: 52px; }
-      .hero-grid { gap: 32px; }
+      .hero { padding-top: 22px; padding-bottom: 52px; }
+      .hero-grid { gap: 24px; }
       .hero h1 { margin: 10px 0 14px; }
+      .hero-art img { aspect-ratio: 11 / 4; }
+      .hero-art figcaption { margin-top: 10px; font-size: 15px; }
       /* Gleich breite Store-Knöpfe: nebeneinander teilen sie die Zeile,
-         beim Umbruch werden beide voll breit — nie versetzt. */
-      .stores .store-btn { flex: 1 1 150px; }
+         beim Umbruch werden beide voll breit — nie versetzt. Der schmalere
+         Innenabstand hält sie auf dem iPhone SE (331 px Satzbreite) in einer
+         Zeile statt in zweien. */
+      .stores .store-btn { flex: 1 1 150px; padding: 8px 14px; }
     }
 
     /* ── Die zwei Phasen ────────────────────────────────────────────────── */
