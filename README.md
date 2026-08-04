@@ -63,13 +63,13 @@ Dieses Repo enthält die **offizielle Website** zur App, veröffentlicht über G
 
 | Seite | Zweck |
 |---|---|
-| [`docs/index.html`](docs/index.html) | Smart-Link — erkennt iOS/Android und leitet zum passenden Store weiter |
+| [`docs/index.html`](docs/index.html) | Landingpage — Marketing-URL aus den Store-Listings, bewusst ohne Auto-Redirect |
 | [`docs/gruss.html`](docs/gruss.html) | Gruß-Seite mit eigenem Vorschaubild, Anlass über `?anlass=` |
 | [`docs/verschenken.html`](docs/verschenken.html) | Weiterleitung der alten Gruß-Adresse auf `/gruss` (nimmt `?anlass=` mit) |
 | [`docs/datenschutz.html`](docs/datenschutz.html) | Datenschutzerklärung |
 | [`docs/impressum.html`](docs/impressum.html) | Impressum |
 
-<sub>Beide Stores sind aktiv: <code>docs/index.html</code> <em>und</em> <code>docs/gruss.html</code> tragen je <code>ANDROID_LIVE = true</code>. Der Schalter steht bewusst zweimal — beide Dateien müssen denselben Wert tragen, sonst widersprechen sich die Seiten.</sub>
+<sub>Beide Stores sind aktiv: App-Store- <em>und</em> Play-Store-Link stehen in <code>docs/index.html</code> und <code>docs/gruss.html</code> fest im Markup. Kein JS-Schalter mehr — der frühere <code>ANDROID_LIVE</code>-Umbau ließ ohne JavaScript und für Crawler „Bald für Android“ stehen.</sub>
 
 <sub><strong>URL-Konvention:</strong> nach außen zeigt jede Adresse ohne <code>.html</code> — <code>/gruss</code>, <code>/datenschutz</code>, <code>/impressum</code>. GitHub Pages löst das direkt auf die Datei auf (kein Redirect, Query-Parameter bleiben erhalten), und die App verlinkt genau diese Form. Gilt für <code>canonical</code>, <code>og:url</code> und die interne Navigation. Preis dafür: die Seiten navigieren nur über den Pages-Server, nicht per Doppelklick über <code>file://</code>.</sub>
 
