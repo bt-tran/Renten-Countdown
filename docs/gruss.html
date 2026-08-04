@@ -270,6 +270,8 @@
     <div class="wrap">
       <a class="wordmark" href="./">Renten&nbsp;Countd<span class="dot">ō</span>wn</a>
       <nav class="nav" aria-label="Seitenbereiche">
+        <!-- Ziel wird für Android-Besucher unten per Script auf Google Play
+             gesetzt; ohne JavaScript bleibt der App-Store-Link stehen. -->
         <a class="nav-cta" id="nav-store" href="https://apps.apple.com/de/app/id6779786185">Laden</a>
       </nav>
     </div>
@@ -471,6 +473,17 @@
   <script>
     (function () {
       "use strict";
+
+      // ── „Laden"-Knopf in der Kopfzeile ─────────────────────────────────
+      // Der Knopf trägt den App-Store-Link statisch im Markup — der gilt ohne
+      // JavaScript und für Crawler. Meldet sich der Browser als Android, zeigt
+      // er stattdessen auf Google Play; sonst schickte ein einzelner Knopf die
+      // halbe Besucherschaft in den falschen Store. Bewusst nur das Link-Ziel:
+      // KEIN Auto-Redirect (siehe Kommentar an den Store-Buttons im Hero).
+      if (/Android/i.test(navigator.userAgent)) {
+        var cta = document.getElementById("nav-store");
+        if (cta) cta.href = "https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown";
+      }
 
       // ── Anlass-Personalisierung ────────────────────────────────────────
       // Der Verschenken-Link der App trägt optional ?anlass=… — das tauscht
