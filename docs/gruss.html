@@ -267,22 +267,29 @@
     .closer { text-align: center; }
     /*
       Abbinder-Loop: dieselbe Kaffee-Oma, die die App im Kaffee-Screen zeigt.
-      Maske wie dort (`FeatheredEdges` in kaffee_screen.dart) — links/rechts/oben
-      weich, unten NICHT: die Quelle ist am Fuß bündig geschnitten (gemessen
-      4 px Rand), ein Verlauf würde dort Tisch und Stuhl auflösen statt
-      Hintergrund. Die Werte folgen dem tatsächlichen Rand der Quelle
-      (links 9,5 %, rechts 16,9 %, oben 10 %), damit die Maske die Blumenvase
-      und den Dutt nicht anschneidet.
+      Maske wie dort (`FeatheredEdges` in kaffee_screen.dart), Werte nach dem
+      gemessenen Rand der Quelle (links 9,5 %, rechts 16,9 %, oben 10 %), damit
+      sie Blumenvase und Dutt nicht anschneidet.
+
+      Der Fuß ist der Sonderfall: die Quelle ist dort bündig geschnitten (4 px
+      Rand), in der App fällt das nicht auf, weil das Video in einer Karte sitzt
+      und der Schnitt an deren Kante liegt. Frei auf der Seite las sich dieselbe
+      Kante als abgeschnittenes Bild. Der kräftige untere Verlauf löst Tischfuß
+      und Beine stattdessen in den Hintergrund auf — nichts wird dazuerfunden,
+      es endet nur weich statt hart. 22 % ist keine freie Zahl, sondern
+      `kOmaSplashEdgeFeather` aus dem Design-System, das genau dafür da ist.
+      Der untere Abstand ist entsprechend kleiner: der ausgeblendete Streifen
+      wirkt bereits als Abstand zur Headline.
     */
     .closer .kaffee {
-      display: block; width: 168px; height: auto; margin: 0 auto 22px;
+      display: block; width: 168px; height: auto; margin: 0 auto 12px;
       -webkit-mask-image:
         linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
-        linear-gradient(to bottom, transparent 0, #000 8%, #000 100%);
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
       -webkit-mask-composite: source-in;
               mask-image:
         linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
-        linear-gradient(to bottom, transparent 0, #000 8%, #000 100%);
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
               mask-composite: intersect;
     }
     .closer .stores { justify-content: center; }
