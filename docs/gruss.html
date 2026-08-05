@@ -135,17 +135,18 @@
     .hero h1 { margin: 0 0 8px; }
     .hero .lede { max-width: 46ch; margin-top: 20px; }
 
-    /* Geschenkanhänger — greift die _GiftTagPreview aus der App auf.
-       Neutrale Schrift (Gruß des Schenkers, NICHT Omas Stimme). */
-    .gift-tag {
+    /* Gruß-Anhänger — greift die _GiftTagPreview aus der App auf (dort heißt
+       das Widget noch so). Neutrale Schrift (Gruß des Absenders, NICHT Omas
+       Stimme). */
+    .gruss-tag {
       position: relative; display: block; max-width: 42ch; margin: 4px 0 2px;
       background: var(--bg-subtle); border: var(--rule) solid var(--border);
       border-radius: var(--radius); padding: 15px 20px 15px 46px;
       font-size: 16px; line-height: 1.5; color: var(--ink);
     }
-    /* Geschenkanhänger-Icon (Gold) statt eines Kreises — sonst liest sich der
+    /* Anhänger-Icon (Gold) statt eines Kreises — sonst liest sich der
        Punkt wie ein Radio-Button. */
-    .gift-tag::before {
+    .gruss-tag::before {
       content: ""; position: absolute; left: 17px; top: 50%; transform: translateY(-50%);
       width: 20px; height: 20px;
       background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239C7A2E'><path d='M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z'/></svg>") no-repeat center / contain;
@@ -165,25 +166,25 @@
     .store-btn:hover { background: var(--accent); border-color: var(--accent); }
     .price-note { margin-top: 14px; font-size: 13px; color: var(--secondary); }
 
-    .gift-art { margin: 0; text-align: center; }
-    .gift-art img { width: auto; max-height: 460px; margin: 0 auto; }
-    .gift-art figcaption { margin-top: 14px; font-size: 16px; color: var(--ink); }
+    .gruss-art { margin: 0; text-align: center; }
+    .gruss-art img { width: auto; max-height: 460px; margin: 0 auto; }
+    .gruss-art figcaption { margin-top: 14px; font-size: 16px; color: var(--ink); }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 20px; }
       /* Oma grüßt weiterhin zuerst — aber als kompaktes Willkommens-Bild,
          nicht bildschirmfüllend, damit die Headline gleich danach kommt. */
-      .gift-art { order: -1; }
-      .gift-art img { max-height: 190px; }
-      .gift-art figcaption { margin-top: 8px; }
+      .gruss-art { order: -1; }
+      .gruss-art img { max-height: 190px; }
+      .gruss-art figcaption { margin-top: 8px; }
     }
     @media (max-width: 560px) {
       .section { padding: 54px 0; }
       .section-head { margin-bottom: 32px; }
       .hero { padding-top: 20px; padding-bottom: 48px; }
       .hero-grid { gap: 14px; }
-      .gift-art img { max-height: 140px; }
-      .gift-art figcaption { margin-top: 8px; font-size: 14px; }
+      .gruss-art img { max-height: 140px; }
+      .gruss-art figcaption { margin-top: 8px; font-size: 14px; }
       .stores .store-btn { flex: 1 1 150px; }
     }
 
@@ -283,8 +284,8 @@
       <div class="hero-grid">
         <div>
           <p class="eyebrow gold">Ein Gruß für dich</p>
-          <h1 id="gift-headline">Die Rente ist dir gegönnt. Zähl schon mal mit.</h1>
-          <p class="gift-tag" id="gift-tag">Für dich — weil die Rente ruft und du längst zurückwinkst.</p>
+          <h1 id="gruss-headline">Die Rente ist dir gegönnt. Zähl schon mal mit.</h1>
+          <p class="gruss-tag" id="gruss-tag">Für dich — weil die Rente ruft und du längst zurückwinkst.</p>
           <p class="lede">
             Jemand findet, du hast dir den Feierabend verdient — und schickt dir den ehrlichsten
             Countdown bis zur Rente, mit der Turbo-Oma, die sagt, was du dir im Büro nicht traust.
@@ -312,7 +313,7 @@
           <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein Konto</p>
         </div>
 
-        <figure class="gift-art">
+        <figure class="gruss-art">
           <!--
             Megafon statt Geschenkpaket: Diese Seite ist der Gruß-Weg, hier wird
             nichts verschenkt — der Empfänger kauft selbst. Ein Päckchen wäre
@@ -510,8 +511,8 @@
       var anlass = new URLSearchParams(window.location.search).get("anlass");
       var v = anlass && VARIANTS[anlass.toLowerCase()];
       if (v) {
-        var h = document.getElementById("gift-headline");
-        var t = document.getElementById("gift-tag");
+        var h = document.getElementById("gruss-headline");
+        var t = document.getElementById("gruss-tag");
         if (h) h.textContent = v.h1;
         if (t) t.textContent = v.tag;
       }
