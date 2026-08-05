@@ -167,7 +167,37 @@
     .price-note { margin-top: 14px; font-size: 13px; color: var(--secondary); }
 
     .gruss-art { margin: 0; text-align: center; }
-    .gruss-art img { width: auto; max-height: 460px; margin: 0 auto; }
+    /*
+      Der Hero ist derselbe Megafon-Loop, den die App auf dem Gruß-Weg zeigt
+      (`HeroMotiv.megafon`). Die Datei ist quadratisch und trägt bewusst ~14 %
+      Rand um die Figur — H.264/VP9 können keinen Alphakanal, also ist der Clip
+      opak auf kBackground encodiert. Deshalb hier dieselbe Lösung wie in der
+      App (`FeatheredEdges`): eine weiche Maske blendet die Kanten aus, statt
+      auf ein pixelgenau gleiches Creme zu hoffen — der Decoder liefert je nach
+      Browser minimal andere Werte als `--bg`, und eine harte Kante würde das
+      als Kasten sichtbar machen. Der Rand der Quelle sorgt dafür, dass die
+      Maske nur Hintergrund frisst und nie die Kontur anschneidet.
+
+      Größen: das frühere Standbild war randlos freigestellt, der Loop trägt
+      seinen Rand mit (Figur ≈ 73 % der Bildhöhe). Alle max-height-Werte sind
+      deshalb um genau diesen Faktor angehoben, damit die Oma gleich groß
+      bleibt — auf schmalen Viewports geht das auf, auf dem Desktop begrenzt
+      die Spalte (443 px) sie auf ~323 px statt der früheren 460 px. Mehr gäbe
+      es nur gegen die Spaltenbreite, und die gehört der Headline.
+    */
+    .gruss-art video {
+      width: auto; height: auto;
+      max-width: 100%; max-height: 632px;
+      margin: 0 auto;
+      -webkit-mask-image:
+        linear-gradient(to right,  transparent 0, #000 9%, #000 91%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+      -webkit-mask-composite: source-in;
+              mask-image:
+        linear-gradient(to right,  transparent 0, #000 9%, #000 91%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+              mask-composite: intersect;
+    }
     .gruss-art figcaption { margin-top: 14px; font-size: 16px; color: var(--ink); }
 
     @media (max-width: 900px) {
@@ -175,7 +205,7 @@
       /* Oma grüßt weiterhin zuerst — aber als kompaktes Willkommens-Bild,
          nicht bildschirmfüllend, damit die Headline gleich danach kommt. */
       .gruss-art { order: -1; }
-      .gruss-art img { max-height: 190px; }
+      .gruss-art video { max-height: 261px; }
       .gruss-art figcaption { margin-top: 8px; }
     }
     @media (max-width: 560px) {
@@ -183,7 +213,7 @@
       .section-head { margin-bottom: 32px; }
       .hero { padding-top: 20px; padding-bottom: 48px; }
       .hero-grid { gap: 14px; }
-      .gruss-art img { max-height: 140px; }
+      .gruss-art video { max-height: 192px; }
       .gruss-art figcaption { margin-top: 8px; font-size: 14px; }
       .stores .store-btn { flex: 1 1 150px; }
     }
@@ -320,9 +350,21 @@
             dasselbe leere Versprechen wie das alte Wort „Verschenken". Die App
             hält dieselbe Trennung (`HeroMotiv.geschenk` vs. `HeroMotiv.megafon`).
           -->
-          <img src="assets/oma-megafon.webp" width="796" height="1024" fetchpriority="high"
-               alt="Die Turbo-Oma hält lächelnd ein Megafon hoch und ruft es heraus.">
-          <figcaption class="oma-voice">„Wer rastet, der rostet. Ich roste herrlich.“</figcaption>
+          <video class="oma-loop" width="736" height="736"
+                 autoplay muted loop playsinline disablepictureinpicture
+                 poster="assets/oma-megafon.webp"
+                 aria-label="Die Turbo-Oma hebt ihr Megafon und ruft die Rente aus.">
+            <source src="assets/oma-megafon.webm" type="video/webm">
+            <source src="assets/oma-megafon.mp4" type="video/mp4">
+          </video>
+          <!--
+            Die Zeile gehört zum Motiv, nicht zur Seite: „Wer rastet, der
+            rostet" saß auf einer Oma, die stillhielt und ein Paket trug. Hier
+            ruft sie etwas ins Megafon — also trägt der Spruch den Ton. Muster
+            wie im App-Pool: erkennbares Sprichwort, Punkt als Beat, Twist mit
+            App-Bezug (lib/utils/CLAUDE.md).
+          -->
+          <figcaption class="oma-voice">„Der Ton macht die Musik. Meiner macht Feierabend.“</figcaption>
         </figure>
       </div>
     </section>
@@ -515,6 +557,23 @@
         var t = document.getElementById("gruss-tag");
         if (h) h.textContent = v.h1;
         if (t) t.textContent = v.tag;
+      }
+
+      // ── Hero-Loop bei „Bewegung reduzieren" anhalten ────────────────────
+      // `autoplay` steht im Markup, damit der Loop auch ohne JavaScript läuft.
+      // Wer Bewegung abbestellt hat, bekommt hier das Standbild: der Poster ist
+      // exakt der erste Frame, es fehlt also nichts außer der Bewegung. Die
+      // CSS-Regel für prefers-reduced-motion greift bei Video nicht — die
+      // stoppt nur Animationen und Transitions.
+      var motion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+      var loop = document.querySelector(".oma-loop");
+      if (loop && motion) {
+        var applyMotion = function () {
+          if (motion.matches) { loop.removeAttribute("autoplay"); loop.pause(); loop.currentTime = 0; }
+          else { loop.play().catch(function () { /* Autoplay abgelehnt — Poster bleibt stehen. */ }); }
+        };
+        applyMotion();
+        if (motion.addEventListener) motion.addEventListener("change", applyMotion);
       }
     })();
   </script>
