@@ -198,7 +198,17 @@
         linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
               mask-composite: intersect;
     }
-    .gruss-art figcaption { margin-top: 14px; font-size: 16px; color: var(--ink); }
+    /*
+      Negativer Abstand, weil das Video unter den Schuhen ~13 % leeren Rand
+      trägt (s. oben). Ohne ihn stünde die Zeile optisch doppelt so weit weg wie
+      unter dem früheren, randlos freigestellten Standbild — die Oma hing lose
+      über ihrem eigenen Zitat. Der Wert ist je Haltepunkt ~7 % der Videohöhe,
+      dasselbe Verhältnis, mit dem die App den Text auf den Videofuß schiebt
+      (_heroTextOverlap 18 auf 260, verschenken_screen.dart). Der untere
+      Maskenverlauf blendet genau diesen Fuß aus, die Zeile liegt also auf
+      Hintergrund, nie auf Bild.
+    */
+    .gruss-art figcaption { margin-top: -31px; font-size: 16px; color: var(--ink); }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -206,7 +216,7 @@
          nicht bildschirmfüllend, damit die Headline gleich danach kommt. */
       .gruss-art { order: -1; }
       .gruss-art video { max-height: 261px; }
-      .gruss-art figcaption { margin-top: 8px; }
+      .gruss-art figcaption { margin-top: -18px; }
     }
     @media (max-width: 560px) {
       .section { padding: 54px 0; }
@@ -214,7 +224,7 @@
       .hero { padding-top: 20px; padding-bottom: 48px; }
       .hero-grid { gap: 14px; }
       .gruss-art video { max-height: 192px; }
-      .gruss-art figcaption { margin-top: 8px; font-size: 14px; }
+      .gruss-art figcaption { margin-top: -13px; font-size: 14px; }
       .stores .store-btn { flex: 1 1 150px; }
     }
 
