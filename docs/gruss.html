@@ -265,7 +265,26 @@
 
     /* ── Schluss-Aufruf ─────────────────────────────────────────────────── */
     .closer { text-align: center; }
-    .closer .kaffee { width: 168px; margin: 0 auto 22px; }
+    /*
+      Abbinder-Loop: dieselbe Kaffee-Oma, die die App im Kaffee-Screen zeigt.
+      Maske wie dort (`FeatheredEdges` in kaffee_screen.dart) — links/rechts/oben
+      weich, unten NICHT: die Quelle ist am Fuß bündig geschnitten (gemessen
+      4 px Rand), ein Verlauf würde dort Tisch und Stuhl auflösen statt
+      Hintergrund. Die Werte folgen dem tatsächlichen Rand der Quelle
+      (links 9,5 %, rechts 16,9 %, oben 10 %), damit die Maske die Blumenvase
+      und den Dutt nicht anschneidet.
+    */
+    .closer .kaffee {
+      display: block; width: 168px; height: auto; margin: 0 auto 22px;
+      -webkit-mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 100%);
+      -webkit-mask-composite: source-in;
+              mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 100%);
+              mask-composite: intersect;
+    }
     .closer .stores { justify-content: center; }
     .closer .price-note { text-align: center; }
 
@@ -482,7 +501,25 @@
     <!-- ══ Schluss ═══════════════════════════════════════════════════════ -->
     <section class="section">
       <div class="wrap closer">
-        <img class="kaffee" src="assets/oma-kaffee.webp" alt="Die Turbo-Oma sitzt mit Kaffee und einem Stück Kuchen am Tisch." width="168" loading="lazy">
+        <!--
+          Der Loop zeigt eine andere Einstellung als das frühere Standbild:
+          näher dran, ohne Kuchen, dafür mit dampfendem Kaffee und rührendem
+          Löffel. Alt-Text und Poster tragen deshalb das, was wirklich zu sehen
+          ist. Das Standbild bleibt in `assets/` — index.html nutzt es weiter.
+
+          Bewusst OHNE `autoplay`: der Abbinder steht unter der Falte, und
+          `autoplay` würde ihn trotz preload="none" sofort holen. Das Skript
+          startet ihn, sobald er in Sicht kommt. Ohne JavaScript bleibt hier das
+          Poster stehen — für ein schmückendes Schlussbild der richtige Tausch,
+          anders als beim Hero, der ohne JS laufen muss.
+        -->
+        <video class="kaffee oma-loop" width="592" height="480"
+               muted loop playsinline disablepictureinpicture preload="none"
+               poster="assets/oma-kaffee-poster.webp"
+               aria-label="Die Turbo-Oma sitzt am Tisch und rührt in ihrem dampfenden Kaffee.">
+          <source src="assets/oma-kaffee.webm" type="video/webm">
+          <source src="assets/oma-kaffee.mp4" type="video/mp4">
+        </video>
         <h2>Der Countdown läuft für dich sowieso.</h2>
         <p class="lede" style="margin:14px auto 0; max-width:44ch">
           Jetzt zählt ihn wenigstens einer mit — und du gewöhnst dich schon mal daran, wie sich Ruhe anfühlt.
@@ -571,21 +608,54 @@
         if (t) t.textContent = v.tag;
       }
 
-      // ── Hero-Loop bei „Bewegung reduzieren" anhalten ────────────────────
-      // `autoplay` steht im Markup, damit der Loop auch ohne JavaScript läuft.
-      // Wer Bewegung abbestellt hat, bekommt hier das Standbild: der Poster ist
-      // exakt der erste Frame, es fehlt also nichts außer der Bewegung. Die
-      // CSS-Regel für prefers-reduced-motion greift bei Video nicht — die
-      // stoppt nur Animationen und Transitions.
-      var motion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
-      var loop = document.querySelector(".oma-loop");
-      if (loop && motion) {
-        var applyMotion = function () {
-          if (motion.matches) { loop.removeAttribute("autoplay"); loop.pause(); loop.currentTime = 0; }
-          else { loop.play().catch(function () { /* Autoplay abgelehnt — Poster bleibt stehen. */ }); }
+      // ── Oma-Loops: Bewegung nur, wenn gewollt und sichtbar ──────────────
+      // Zwei Loops auf der Seite (Hero oben, Abbinder unten). Der Hero trägt
+      // `autoplay` im Markup und läuft damit auch ohne JavaScript. Der
+      // Abbinder steht unter der Falte und lädt mit preload="none" — er wird
+      // erst geholt, wenn er in Sicht kommt; wer nie so weit scrollt, zahlt
+      // seine ~250 KB nicht. Aus dem Bild gescrollte Loops pausieren wieder.
+      //
+      // prefers-reduced-motion hält beide an — die CSS-Regel dafür erreicht
+      // Video-Wiedergabe nicht, sie stoppt nur Animationen und Transitions.
+      // Es fehlt dann nichts außer der Bewegung: jeder Poster ist exakt der
+      // erste Frame seines Loops.
+      var loops = document.querySelectorAll(".oma-loop");
+      var stillPlease = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      if (loops.length && stillPlease) {
+        var each = function (fn) { Array.prototype.forEach.call(loops, fn); };
+
+        var setLoopState = function () {
+          each(function (v) {
+            if (stillPlease.matches) {
+              v.removeAttribute("autoplay");
+              v.pause();
+              v.currentTime = 0;
+            } else if (v.dataset.inView === "1") {
+              var started = v.play();
+              if (started) started.catch(function () { /* Autoplay abgelehnt — Poster bleibt stehen. */ });
+            }
+          });
         };
-        applyMotion();
-        if (motion.addEventListener) motion.addEventListener("change", applyMotion);
+
+        if (window.IntersectionObserver) {
+          var watcher = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              var v = entry.target;
+              v.dataset.inView = entry.isIntersecting ? "1" : "0";
+              if (!entry.isIntersecting) { v.pause(); return; }
+              // Erst jetzt laden — vorher stand preload="none" im Markup.
+              if (v.preload === "none") { v.preload = "auto"; v.load(); }
+            });
+            setLoopState();
+          }, { threshold: 0.25 });
+          each(function (v) { watcher.observe(v); });
+        } else {
+          each(function (v) { v.dataset.inView = "1"; if (v.preload === "none") { v.preload = "auto"; v.load(); } });
+          setLoopState();
+        }
+
+        if (stillPlease.addEventListener) stillPlease.addEventListener("change", setLoopState);
       }
     })();
   </script>
