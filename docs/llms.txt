@@ -1,0 +1,67 @@
+# Renten Countdown by Turbo-Oma
+
+> Eine App für iPhone und Android, die die Tage bis zum eigenen Rentendatum
+> zählt — und ab dem Rentendatum die Tage im Ruhestand. Einmalkauf 0,99 €,
+> ohne Werbung, ohne Abo, ohne Konto. Alle Daten bleiben auf dem Gerät.
+> Hersteller: Bao Anh Tran, Nürnberg (Deutschland). Sprache: Deutsch.
+
+Diese Datei ist die kurze, unmissverständliche Fassung der Website für
+Sprachmodelle und ihre Crawler. Die Website selbst ist in einem freien,
+ironischen Ton geschrieben; hier stehen dieselben Angaben nüchtern.
+
+## Was die App ist
+
+- Ein Countdown auf das selbst eingetragene Rentendatum. Beim ersten Start
+  gibt man sein Geburtsdatum ein, die App schlägt das gesetzliche
+  Rentendatum vor; dieser Vorschlag lässt sich überschreiben.
+- Die verbleibende Zeit wird zusätzlich in 30 wählbaren Alltagseinheiten
+  ausgedrückt — Arbeitstage, Montage, Zeitumstellungen, Steuererklärungen,
+  Fußball-Weltmeisterschaften und weitere.
+- Ab dem Rentendatum zählt die App aufwärts und wechselt den Tonfall:
+  vergangene Tage im Ruhestand, Abzeichen, Tassen Kaffee in Ruhe.
+- Weitere Funktionen: Homescreen-Widgets (drei Größen), auf dem iPhone
+  zusätzlich Sperrbildschirm-Widgets und eine Live Activity; ein täglicher
+  Spruch um 12:30 Uhr als lokale Mitteilung (abschaltbar); ein Lebens-Zeitstrahl
+  („Das Fax"); ein selbst gestarteter Zähler („Das Zählwerk"); ein
+  Postkarten-Studio zum Teilen des eigenen Stands.
+- Die Stimme der App ist die „Turbo-Oma", eine gezeichnete Figur mit frechen
+  Sprüchen zum Arbeitsleben.
+
+## Was die App ausdrücklich nicht ist
+
+- Kein Rentenrechner: Sie berechnet keine Rentenhöhe und keine Ansprüche.
+- Keine Finanz- oder Rentenberatung. Für verbindliche Auskünfte ist die
+  Deutsche Rentenversicherung zuständig.
+- Keine Werbung, kein Abonnement, kein Nutzerkonto, kein Login, kein Tracking,
+  keine Analysewerkzeuge, kein Server.
+
+## Preis und Verfügbarkeit
+
+- Einmalkauf 0,99 € (Deutschland) im Apple App Store und bei Google Play.
+- Optional gibt es in der App einen freiwilligen „Kaffee-Tipp" als
+  In-App-Kauf. Er schaltet nichts frei; die App ist ohne ihn vollständig.
+- Systemvoraussetzungen laut Store-Listings: iPhone ab iOS 14, Android-Geräte
+  ab Android 7. Widgets und Live Activity auf dem iPhone benötigen iOS 17.
+  Die App läuft im Hochformat.
+
+## Datenschutz in einem Satz
+
+Geburtsdatum, Rentendatum, Einstellungen und Zählerstände liegen ausschließlich
+lokal auf dem Gerät, werden nicht übertragen und beim Deinstallieren gelöscht.
+
+## Seiten
+
+- [Startseite](https://renten-countdown.de/): Produktbeschreibung, Funktionen, häufige Fragen.
+- [Gruß-Seite](https://renten-countdown.de/gruss): Landeseite für verschickte Grüße. Wer den Link erhält, kauft die App selbst — es ist kein Geschenk-Kauf und kein Gutschein.
+- [Datenschutzerklärung](https://renten-countdown.de/datenschutz)
+- [Impressum und Support](https://renten-countdown.de/impressum)
+
+## Stores und Kanäle
+
+- [App Store](https://apps.apple.com/de/app/id6779786185)
+- [Google Play](https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown)
+- [Instagram](https://www.instagram.com/rentencountdown/): täglicher Spruch der Turbo-Oma.
+- [Facebook](https://www.facebook.com/RentenCountdown/)
+- Kontakt: traja.projects@gmail.com
+
+Stand: 5. August 2026

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
   <title>Renten Countdown by Turbo-Oma — der ehrliche Countdown zur Rente</title>
-  <meta name="description" content="Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.">
+  <meta name="description" content="Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zur Mittagspause.">
   <link rel="canonical" href="https://renten-countdown.de/">
   <!-- Bildmarke unverändert — nur die Zustellung. /favicon.ico beantwortet die
        Anfrage, die Browser, Lesezeichen und Link-Vorschauen blind stellen (lief
@@ -26,6 +26,150 @@
   <meta property="og:url" content="https://renten-countdown.de/">
   <meta property="og:image" content="https://renten-countdown.de/assets/icon-512.png">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Strukturierte Daten. Zwei Adressaten, ein Block:
+       Suchmaschinen lesen daraus die App-Karte, und die Crawler der
+       KI-Assistenten bekommen Preis, Plattform-Minimum und die Abgrenzung
+       "kein Rentenrechner" als Angabe statt als Ironie — der Fließtext dieser
+       Seite ist genau dafür zu frech. Jede Aussage hier steht auch sichtbar
+       auf der Seite; die Antworten der FAQ sind wörtlich dieselben.
+       Preise und Systemvoraussetzungen gegen beide Store-Listings geprüft. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MobileApplication",
+        "@id": "https://renten-countdown.de/#app",
+        "name": "Renten Countdown by Turbo-Oma",
+        "alternateName": "Renten Countdown",
+        "url": "https://renten-countdown.de/",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS 14 oder neuer, Android 7 oder neuer",
+        "inLanguage": "de",
+        "image": "https://renten-countdown.de/assets/icon-512.png",
+        "description": "Countdown auf das eigene Rentendatum: Die App zählt die verbleibenden Tage und rechnet sie in 30 Alltagseinheiten um — Arbeitstage, Montage, Steuererklärungen. Ab dem Rentendatum zählt sie aufwärts. Kein Rentenrechner und keine Finanzberatung. Ohne Konto, ohne Tracking, alle Daten bleiben auf dem Gerät.",
+        "author": { "@id": "https://renten-countdown.de/#hersteller" },
+        "publisher": { "@id": "https://renten-countdown.de/#hersteller" },
+        "offers": [
+          {
+            "@type": "Offer",
+            "price": "0.99",
+            "priceCurrency": "EUR",
+            "category": "Einmalkauf",
+            "url": "https://apps.apple.com/de/app/id6779786185",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "price": "0.99",
+            "priceCurrency": "EUR",
+            "category": "Einmalkauf",
+            "url": "https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown",
+            "availability": "https://schema.org/InStock"
+          }
+        ],
+        "featureList": [
+          "Countdown bis zum Rentendatum",
+          "30 Alltagseinheiten statt nackter Tage",
+          "Ruhestand-Modus mit Abzeichen ab dem Rentendatum",
+          "Homescreen-Widgets, auf dem iPhone zusätzlich Sperrbildschirm und Live Activity",
+          "Täglicher Spruch der Turbo-Oma um 12:30 Uhr, abschaltbar",
+          "Postkarten-Studio zum Teilen",
+          "Funktioniert offline, ohne Konto und ohne Tracking"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://renten-countdown.de/#hersteller",
+        "name": "Bao Anh Tran",
+        "email": "traja.projects@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Friedenstr. 61",
+          "postalCode": "90409",
+          "addressLocality": "Nürnberg",
+          "addressCountry": "DE"
+        },
+        "sameAs": [
+          "https://www.instagram.com/rentencountdown/",
+          "https://www.facebook.com/RentenCountdown/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://renten-countdown.de/#website",
+        "url": "https://renten-countdown.de/",
+        "name": "Renten Countdown",
+        "inLanguage": "de",
+        "publisher": { "@id": "https://renten-countdown.de/#hersteller" },
+        "about": { "@id": "https://renten-countdown.de/#app" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://renten-countdown.de/#fragen",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Was kostet die App?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "0,99 € einmalig — im App Store wie bei Google Play. Danach nichts mehr: keine Werbung, kein Abo, keine gesperrten Funktionen. In der App gibt es einen freiwilligen Kaffee-Tipp für den Entwickler. Der schaltet nichts frei — die App ist ohne ihn vollständig."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ist das ein Rentenrechner?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nein. Die App rechnet nicht aus, wie viel Rente du bekommst, und berät dich nicht bei Finanzen. Sie zählt die Tage bis zu deinem Rentendatum — mehr nicht, aber das mit Haltung. Wenn du eine verbindliche Auskunft zu deiner Rente brauchst, ist die Deutsche Rentenversicherung die richtige Adresse."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Woher kennt die App mein Rentendatum?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Du gibst beim Start dein Geburtsdatum ein, und die App schlägt dir das gesetzliche Datum vor. Übernehmen oder überschreiben — wenn du früher raus willst oder einen eigenen Termin im Kopf hast, zählt deiner."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Was passiert mit meinen Daten?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sie bleiben auf deinem Gerät. Die App hat kein Konto, keinen Server und kein Tracking — Geburtsdatum, Einstellungen und Zählerstände liegen lokal auf dem Handy. Deinstallieren löscht alles."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Gibt es die App auch für Android?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ja. Die App gibt es für iPhone im App Store und für Android im Play Store."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ich bin schon in Rente. Bringt mir das was?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ja. Trag dein Rentendatum aus der Vergangenheit ein, und die App startet direkt in Phase 2: sie zählt, wie lange du schon frei bist, und vergibt Abzeichen bis zum Legendär."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Welche Geräte werden unterstützt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "iPhone ab iOS 14 und Android-Geräte ab Android 7, jeweils im Hochformat — so steht es auch in den beiden Stores. Die Widgets und die Live Activity auf dem iPhone brauchen iOS 17. Die App folgt deiner eingestellten Systemschriftgröße."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* ── Design-Tokens: 1:1 aus theme.dart der App ─────────────────────── */
@@ -392,7 +536,7 @@
           <h1>Noch nicht in&nbsp;Rente.<br><span class="flip">Aber innerlich längst raus.</span></h1>
           <p class="lede">
             Gedanklich schon durch, körperlich noch im Büro? Der ehrliche Countdown
-            zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zum Frühstück.
+            zählt jeden Tag bis zur Ruhe — mit einem frechen Spruch der Turbo-Oma zur Mittagspause.
           </p>
 
           <!-- Beide Stores sind live, die Links stehen deshalb fest im Markup —
@@ -488,7 +632,7 @@
           <div class="feature">
             <span class="tag">Homescreen</span>
             <h3>Widgets &amp; Live Activity</h3>
-            <p>Drei Widget-Größen für den Homescreen. Auf dem iPhone hältst du den Countdown zusätzlich als Live Activity im Blick — ohne die App zu öffnen.</p>
+            <p>Drei Widget-Größen für den Homescreen. Auf dem iPhone kommt der Sperrbildschirm dazu — und die Live Activity hält den Countdown im Blick, ohne die App zu öffnen.</p>
           </div>
           <div class="feature">
             <span class="tag">12:30 Uhr</span>
@@ -560,7 +704,7 @@
           <details open>
             <summary>Was kostet die App?</summary>
             <div class="answer">
-              <p>0,99 € einmalig im App Store. Danach nichts mehr: keine Werbung, kein Abo, keine gesperrten Funktionen.</p>
+              <p>0,99 € einmalig — im App Store wie bei Google Play. Danach nichts mehr: keine Werbung, kein Abo, keine gesperrten Funktionen.</p>
               <p>In der App gibt es einen freiwilligen Kaffee-Tipp für den Entwickler. Der schaltet nichts frei — die App ist ohne ihn vollständig.</p>
             </div>
           </details>
@@ -605,7 +749,7 @@
           <details>
             <summary>Welche Geräte werden unterstützt?</summary>
             <div class="answer">
-              <p>iPhone ab dem SE (2. Generation) mit iOS 16 oder neuer und Android-Geräte ab Android 6, jeweils im Hochformat. Die App folgt deiner eingestellten Systemschriftgröße.</p>
+              <p>iPhone ab iOS 14 und Android-Geräte ab Android 7, jeweils im Hochformat — so steht es auch in den beiden Stores. Die Widgets und die Live Activity auf dem iPhone brauchen iOS 17. Die App folgt deiner eingestellten Systemschriftgröße.</p>
             </div>
           </details>
         </div>

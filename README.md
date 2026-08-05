@@ -53,7 +53,7 @@ Die App kennt zwei Stimmungen. Bis zum großen Tag läuft der **Countdown**: dir
 
 ## Plattform & Technik
 
-Gebaut mit **Flutter / Dart**. Läuft auf **iOS 16+** und **Android 6+ (API 23)**, inklusive nativer Widgets (WidgetKit / App Widget). Kein Backend, kein Login — alles läuft offline auf dem Gerät.
+Gebaut mit **Flutter / Dart**. Läuft auf **iOS 14+** und **Android 7+ (API 24)**, inklusive nativer Widgets (WidgetKit / App Widget; auf dem iPhone ab iOS 17). Kein Backend, kein Login — alles läuft offline auf dem Gerät.
 
 > Der App-Quellcode ist nicht Teil dieses Repositorys.
 
@@ -79,7 +79,7 @@ Renten Countdown erhebt **keine personenbezogenen Daten**: kein Konto, kein Trac
 
 ## Verfügbarkeit
 
-Im [App Store](https://apps.apple.com/de/app/id6779786185) und im [Play Store](https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown) erhältlich — **einmaliger Kauf für 0,99 €, kein Abo** (plus optionaler Kaffee-Tipp für die Oma). Die [Website](https://renten-countdown.de/) führt Besucher automatisch zum passenden Store.
+Im [App Store](https://apps.apple.com/de/app/id6779786185) und im [Play Store](https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown) erhältlich — **einmaliger Kauf für 0,99 €, kein Abo** (plus optionaler Kaffee-Tipp für die Oma). Die [Website](https://renten-countdown.de/) zeigt beide Store-Knöpfe nebeneinander; nur der „Laden"-Knopf in der Kopfzeile zeigt Android-Besuchern Google Play.
 
 ## Impressum & Kontakt
 

@@ -1,0 +1,42 @@
+# renten-countdown.de
+#
+# Diese Seite ist die Marketing-URL aus beiden Store-Listings. Sie soll
+# gefunden werden — von Suchmaschinen wie von den Crawlern der KI-Assistenten,
+# die heute einen wachsenden Teil der Produktfragen beantworten. Deshalb steht
+# hier kein einziges Disallow: es gibt nichts zu verbergen, kein Backend,
+# keine Nutzerdaten, keine Bezahlschranke.
+#
+# /verschenken ist die alte Adresse der Gruß-Seite. Sie bleibt erreichbar
+# (verschickte Links dürfen nicht brechen), trägt aber `noindex` im Kopf und
+# einen `canonical` auf /gruss. Bewusst NICHT per Disallow gesperrt — sonst
+# dürfte kein Crawler die Seite lesen und damit auch die Weiterleitung nicht
+# sehen; das Ziel würde die Signale der alten Adresse nie erben.
+
+User-agent: *
+Allow: /
+
+# Antworten-Crawler der KI-Assistenten. Sie folgen `User-agent: *` ohnehin —
+# die eigenen Blöcke stehen hier, damit die Absicht ausdrücklich dokumentiert
+# ist und ein späteres, gezieltes Nein an einer Stelle geändert werden kann.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bingbot
+User-agent: meta-externalagent
+User-agent: Amazonbot
+User-agent: CCBot
+Allow: /
+
+# Kuratierte Kurzfassung für Sprachmodelle (llms.txt, Community-Konvention).
+# Kein Ersatz für die Seiten selbst, sondern die Fassung ohne Marketing-Ton:
+# https://renten-countdown.de/llms.txt
+
+Sitemap: https://renten-countdown.de/sitemap.xml

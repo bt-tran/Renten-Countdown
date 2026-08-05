@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vier Seiten, alle ohne Erweiterung — GitHub Pages liefert /impressum aus
+  impressum.html aus, und genau diese Form steht in canonical, og:url und in
+  jedem Link auf der Seite. Die alte Adresse /verschenken fehlt hier bewusst:
+  sie trägt noindex und zeigt per canonical auf /gruss.
+
+  Die Gruß-Seite ist von keiner anderen Seite aus verlinkt (sie wird
+  verschickt, nicht gefunden) — ohne diesen Eintrag wäre sie für Crawler eine
+  Waise und würde nur über geteilte Links entdeckt.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://renten-countdown.de/</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://renten-countdown.de/gruss</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://renten-countdown.de/impressum</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://renten-countdown.de/datenschutz</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
