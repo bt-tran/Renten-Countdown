@@ -109,10 +109,14 @@
     }
     .wordmark .dot { color: var(--accent); }
     .nav { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+    /* min-height statt mehr Polsterung: der Knopf fährt über die ganze Seite
+       mit und lag auf 44 px — kMinTapTarget der App sind 54 px. Derselbe
+       Block steht in index.html. */
     .nav .nav-cta {
       color: #fff; background: var(--accent); border: var(--rule) solid var(--accent);
       text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
       text-transform: uppercase; padding: 10px 14px; border-radius: var(--radius);
+      display: inline-flex; align-items: center; min-height: 54px;
     }
     .nav .nav-cta:hover { color: #fff; opacity: .9; }
     @media (max-width: 400px) {
@@ -376,7 +380,7 @@
               </span>
             </a>
           </div>
-          <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein Konto</p>
+          <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein&nbsp;Konto</p>
         </div>
 
         <figure class="gruss-art">
@@ -547,7 +551,7 @@
             </span>
           </a>
         </div>
-        <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein Konto</p>
+        <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein&nbsp;Konto</p>
       </div>
     </section>
   </main>
