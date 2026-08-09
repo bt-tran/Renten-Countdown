@@ -560,14 +560,27 @@
     }
     /* Auf dem Handy stand die Oma als 220-px-Kachel über der Überschrift: links
        angeschlagen, rechts ein Drittel leere Spalte, und über ihr kein Wort,
-       das sie hielte — sie hing lose im Abschnitt. Hier schließt sie ihn
-       stattdessen ab: mittig unter dem Text, den sie ausruft, und groß genug,
-       dass sie als Bild gemeint wirkt und nicht als übrig gebliebene Kachel.
-       Nur unterhalb des Umbruchs — ab 861 px steht sie neben dem Text, dort
-       geht die Rechnung auf. */
+       das sie hielte — sie hing lose im Abschnitt. Hier schiebt sie sich
+       zwischen den Fließtext und ihren eigenen Satz: mittig, größer, und die
+       Zeile darunter ist das, was sie ins Megafon ruft. Damit steht sie in
+       Text, nicht in Leerraum — ohne Rahmen, den es auf dieser Seite für
+       Illustrationen nicht gibt.
+       `display: contents` löst die Text-Spalte auf, damit ihr Satz als eigenes
+       Rasterkind unter das Bild rutschen kann — sonst müsste er aus dem
+       Markup wandern und stünde auf dem Desktop woanders als heute. Dafür
+       muss `gap` auf 0: die Abstände zwischen den Textzeilen sind ihre
+       eigenen Margins, ein Raster-Gap käme oben drauf und risse Eyebrow und
+       Schlagzeile auseinander.
+       Alles nur unterhalb des Umbruchs — ab 861 px steht sie unverändert
+       links neben dem Text, dort geht die Rechnung auf. */
     @media (max-width: 860px) {
-      .gift-grid { gap: 16px; }
-      .gift-art { order: 2; max-width: 244px; margin: 2px auto 0; }
+      .gift-grid { gap: 0; }
+      .gift-body { display: contents; }
+      .gift-body .eyebrow { order: 1; }
+      .gift-body h2 { order: 2; }
+      .gift-body p { order: 3; }
+      .gift-art { order: 4; max-width: 244px; margin: 6px auto 0; }
+      .gift-body .oma-line { order: 5; margin-top: 0; text-align: center; }
     }
 
     /* ── Fragen ─────────────────────────────────────────────────────────── */
