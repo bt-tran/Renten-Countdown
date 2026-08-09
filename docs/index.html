@@ -298,16 +298,22 @@
       .nav .nav-cta { padding: 10px 14px; }
     }
 
-    /* ── Poster: die Turbo-Oma zuerst ───────────────────────────────────
-       Sie ist das Aushängeschild — sie steht randlos und ganz oben, noch vor
-       der Schlagzeile. Der Anschnitt ist gewollt: ein Ausschnitt wirkt wie ein
-       Plakat, das ganze Bild wie eine Illustration neben Text. */
-    .poster { position: relative; background: var(--bg-subtle); }
-    .poster img {
-      width: 100%; height: 198px;
-      object-fit: cover; object-position: center 22%;
-    }
-    .poster .bubble {
+    /* ── Hero ───────────────────────────────────────────────────────────
+       Auf dem Handy führt die Oma als randloses Plakat: der Anschnitt ist dort
+       gewollt, ein Ausschnitt wirkt wie ein Poster. Auf dem Desktop geht das
+       nicht auf — die Illustration ist 725 × 597, in ein bildschirmbreites Band
+       gepresst bliebe von ihr nur der Kopf. Ab 861 px steht sie deshalb neben
+       der Schlagzeile und in ihren eigenen Proportionen. */
+    .hero { padding-block: 0 22px; }
+    .hero-grid { display: grid; gap: 20px; }
+    .hero-text { padding-top: 26px; }
+    .hero h1 { margin: 10px 0 12px; max-width: 16ch; }
+    .hero h1 .flip { color: var(--accent); }
+    .hero .lede { max-width: 46ch; }
+
+    .hero-art { position: relative; margin: 0 calc(var(--pad-h) * -1); background: var(--bg-subtle); }
+    .hero-art img { width: 100%; height: 198px; object-fit: cover; object-position: center 22%; }
+    .hero-art .bubble {
       position: absolute; left: var(--pad-h); bottom: -16px;
       background: var(--bg); border: var(--rule) solid var(--ink);
       border-radius: var(--radius); padding: 9px 14px;
@@ -315,15 +321,18 @@
       box-shadow: 3px 3px 0 rgba(53, 37, 21, .14);
     }
     @media (min-width: 861px) {
-      .poster img { height: 320px; object-position: center 26%; }
-      .poster .bubble { left: max(var(--pad-h), calc(50vw - var(--measure) / 2 + var(--pad-h))); font-size: 16px; }
+      .hero { padding-block: 44px 40px; }
+      .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
+      .hero-text { padding-top: 0; order: 1; }
+      .hero-art { order: 2; margin: 0; background: none; }
+      /* Volle Illustration statt Anschnitt: Höhe ergibt sich aus dem Bild. */
+      .hero-art img {
+        height: auto; object-fit: fill;
+        border: var(--rule) solid var(--border); border-radius: var(--radius);
+      }
+      .hero-art .bubble { left: 16px; bottom: 14px; font-size: 15px; }
+      .hero h1 { font-size: clamp(38px, 3.9vw, 50px); }
     }
-
-    /* ── Hero ───────────────────────────────────────────────────────────── */
-    .hero { padding-block: 28px 22px; }
-    .hero h1 { margin: 10px 0 12px; max-width: 16ch; }
-    .hero h1 .flip { color: var(--accent); }
-    .hero .lede { max-width: 46ch; }
 
     /* Gleich breite Knöpfe: nebeneinander teilen sie die Zeile, beim Umbruch
        werden beide voll breit — nie versetzt. Der Umbruch ist nötig: mit
@@ -358,7 +367,8 @@
        ohne dass ein Satz es erklären muss. Die zwei Zitate rahmen sie: oben
        die Bedingung, unten der Ton. Ohne JavaScript bleibt das Beispiel im
        Markup stehen; es rechnet dann nicht mit, sagt aber dasselbe. */
-    .rechnung { padding-block: 24px 34px; }
+    .rechnung { padding-block: 26px 32px; }
+    .rechnung .eyebrow { text-align: center; }
     .zettel {
       margin: 14px auto 0; max-width: 560px;
       padding: 22px 20px; text-align: center;
@@ -395,14 +405,20 @@
       border-top: var(--rule) solid var(--border);
       border-bottom: var(--rule) solid var(--border);
     }
-    /* Zwei Abschnitte auf Papierfarbe stoßen genau einmal aneinander — dort,
-       wo der Oma-Loop steht, der die Papierfarbe braucht (s. .oma-loop). Die
-       Haarlinie trennt sie, ohne dass einer die Hintergrundfarbe wechseln muss. */
-    .section-rule { border-top: var(--rule) solid var(--border); }
     .section-head { max-width: 640px; }
     .section-head .eyebrow { margin-bottom: 8px; }
     .section-head p { margin-top: 12px; }
     @media (min-width: 861px) { .section { padding: 64px 0; } }
+
+    /* Text links, Beleg rechts. Auf dem Handy stehen beide untereinander —
+       dort ist die Reihenfolge die Aussage. Ab 861 px stünde der Beleg sonst
+       unter einer halbleeren Textzeile und ließe die rechte Hälfte des
+       Bildschirms leer; nebeneinander füllt der Abschnitt seine Breite. */
+    .split { display: grid; gap: 22px; }
+    @media (min-width: 861px) {
+      .split { grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; }
+      .split > .section-head { margin: 0; }
+    }
 
     /* ── Spruch-Karussell ───────────────────────────────────────────────
        Auf dem Handy eine Wisch-Leiste: das erste, was man tut, ist lachen,
@@ -471,6 +487,7 @@
 
     /* ── Die zwei Tonlagen ──────────────────────────────────────────────── */
     .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; max-width: 640px; }
+    @media (min-width: 861px) { .duo { margin-top: 0; max-width: none; gap: 22px; } }
     .duo figure { margin: 0; }
     .duo .shot { border: var(--rule) solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg); }
     .duo figcaption { margin-top: 9px; }
@@ -478,7 +495,7 @@
     .duo strong { display: block; font-size: 15px; font-weight: 800; margin-top: 2px; }
     .duo p { font-size: 13px; color: var(--ink-muted); margin-top: 4px; }
     /* Der Kipppunkt: der Ton der App wechselt hier — die Seite auch. */
-    .crossing { display: flex; align-items: center; gap: 14px; margin: 22px 0 0; max-width: 640px; }
+    .crossing { display: flex; align-items: center; gap: 14px; margin: 22px 0 0; max-width: 560px; }
     .crossing::before, .crossing::after { content: ""; flex: 1; height: var(--rule); background: var(--border); }
     .crossing span {
       font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
@@ -638,15 +655,18 @@
   </header>
 
   <main id="hauptinhalt">
-    <!-- ══ Poster ════════════════════════════════════════════════════════ -->
-    <div class="poster">
-      <img src="assets/oma-buggy.webp" width="725" height="597" fetchpriority="high"
-           alt="Die Turbo-Oma rast mit Fliegerbrille und lachend in einem Buggy durch die Wüste — der Gehstock steckt hinten drin.">
-      <p class="bubble oma-voice">„Die Zeit rennt. Nur im Büro nicht.“</p>
-    </div>
-
-    <!-- ══ Hero ══════════════════════════════════════════════════════════ -->
+    <!-- ══ Hero ══════════════════════════════════════════════════════════
+         Die Oma steht im Markup zuerst — auf dem Handy führt sie als Plakat.
+         Ab 861 px tauscht die Grid-Reihenfolge sie nach rechts neben den Text. -->
     <section class="hero wrap" id="top">
+      <div class="hero-grid">
+      <figure class="hero-art">
+        <img src="assets/oma-buggy.webp" width="725" height="597" fetchpriority="high"
+             alt="Die Turbo-Oma rast mit Fliegerbrille und lachend in einem Buggy durch die Wüste — der Gehstock steckt hinten drin.">
+        <figcaption class="bubble oma-voice">„Die Zeit rennt. Nur im Büro nicht.“</figcaption>
+      </figure>
+
+      <div class="hero-text">
       <p class="eyebrow">Renten Countdown by Turbo-Oma</p>
       <h1>Noch nicht in&nbsp;Rente.<br><span class="flip">Aber innerlich längst raus.</span></h1>
       <p class="lede">
@@ -676,11 +696,14 @@
         </a>
       </div>
       <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein&nbsp;Konto</p>
+      </div>
+      </div>
     </section>
 
     <!-- ══ Omas Rechnung ═════════════════════════════════════════════════ -->
-    <section class="rechnung wrap" id="countdown">
-      <p class="eyebrow" style="text-align:center">Omas Rechnung</p>
+    <section class="rechnung section-subtle" id="countdown">
+      <div class="wrap">
+      <p class="eyebrow">Omas Rechnung</p>
       <blockquote class="zettel">
         <p class="sagen oma-voice">„Sagen wir, du hörst am <b>1. Januar 2056</b> auf.“</p>
         <p class="zahl" id="rechnung-zahl">10.736</p>
@@ -689,10 +712,11 @@
         <p class="dazu oma-voice">„Der Rest zählt sich von allein runter. Ich schau nur zu.“</p>
       </blockquote>
       <p class="hinweis">In der App steht hier <b>dein</b> Datum — und dieselbe Zahl in 30 Einheiten, die du wirklich spürst.</p>
+      </div>
     </section>
 
     <!-- ══ Turbo-Oma ═════════════════════════════════════════════════════ -->
-    <section class="section section-subtle" id="oma">
+    <section class="section" id="oma">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Die Stimme der App</p>
@@ -713,11 +737,14 @@
     </section>
 
     <!-- ══ Der Tagesspruch ═══════════════════════════════════════════════ -->
-    <section class="section" id="tagesspruch">
-      <div class="wrap">
+    <section class="section section-subtle" id="tagesspruch">
+      <div class="wrap split">
         <div class="section-head">
           <p class="eyebrow">Jeden Tag um 12:30</p>
           <h2>Pünktlich zur Mittagspause.</h2>
+          <p class="push-note">
+            Ein Spruch am Tag, nie zweimal derselbe — und abschaltbar, falls die Oma mal zu laut wird.
+          </p>
         </div>
         <!-- Nachbau, kein Screenshot: der Satz darin ist die echte erste
              Mitteilung aus der App (kErsterTagesSpruch). -->
@@ -728,15 +755,12 @@
             <p class="m oma-voice">„Ich zähl ab heute mit. Nicht dass sich noch ein Arbeitstag rausmogelt.“</p>
           </div>
         </div>
-        <p class="push-note">
-          Ein Spruch am Tag, nie zweimal derselbe — und abschaltbar, falls die Oma mal zu laut wird.
-        </p>
       </div>
     </section>
 
     <!-- ══ Die zwei Phasen ═══════════════════════════════════════════════ -->
-    <section class="section section-subtle" id="phasen">
-      <div class="wrap">
+    <section class="section" id="phasen">
+      <div class="wrap split">
         <div class="section-head">
           <p class="eyebrow">Das Herzstück</p>
           <h2>Eine App, zwei Tonlagen.</h2>
@@ -744,6 +768,7 @@
             Bis zur Rente redet die App wie ein Kollege, der auch keine Lust mehr hat.
             Ab dem Rentendatum kippt sie — und feiert dich. Der Wechsel passiert von allein.
           </p>
+          <div class="crossing"><span>Am Rententag kippt der Ton</span></div>
         </div>
         <div class="duo">
           <figure>
@@ -769,12 +794,11 @@
             </figcaption>
           </figure>
         </div>
-        <div class="crossing"><span>Am Rententag kippt der Ton</span></div>
       </div>
     </section>
 
     <!-- ══ Funktionen ════════════════════════════════════════════════════ -->
-    <section class="section tut" id="funktionen">
+    <section class="section tut section-subtle" id="funktionen">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Was sie sonst noch treibt</p>
@@ -831,7 +855,7 @@
     </section>
 
     <!-- ══ Verschenken / Erzähl davon ════════════════════════════════════ -->
-    <section class="section section-rule" id="verschenken">
+    <section class="section" id="verschenken">
       <div class="wrap">
         <div class="gift-grid">
           <figure class="gift-art">
