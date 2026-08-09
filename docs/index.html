@@ -395,6 +395,10 @@
       border-top: var(--rule) solid var(--border);
       border-bottom: var(--rule) solid var(--border);
     }
+    /* Zwei Abschnitte auf Papierfarbe stoßen genau einmal aneinander — dort,
+       wo der Oma-Loop steht, der die Papierfarbe braucht (s. .oma-loop). Die
+       Haarlinie trennt sie, ohne dass einer die Hintergrundfarbe wechseln muss. */
+    .section-rule { border-top: var(--rule) solid var(--border); }
     .section-head { max-width: 640px; }
     .section-head .eyebrow { margin-bottom: 8px; }
     .section-head p { margin-top: 12px; }
@@ -492,11 +496,11 @@
       width: 58px; height: 58px; border: var(--rule) solid var(--border); border-radius: var(--radius);
       overflow: hidden; background: var(--bg-subtle); display: grid; place-items: center;
     }
-    .tut .thumb img { width: 100%; height: 100%; object-fit: contain; padding: 7px; }
     /* Zahlen bleiben Zahlen — sie tragen hier Bedeutung (30 Einheiten, ein
-       Zählerstand). Wo ein Bildzeichen nötig ist, steht ein Inline-SVG statt
-       eines Unicode-Symbols: die Symbolschriften der Systeme zeichnen dieselbe
-       Glyphe mal als Haarlinie, mal als farbiges Emoji-Kästchen. */
+       Zählerstand). Sonst steht überall ein Inline-SVG: ein Unicode-Symbol
+       zeichnen die Systemschriften mal als Haarlinie, mal als farbiges
+       Emoji-Kästchen, und ein Foto zwischen gezeichneten Zeichen bricht die
+       Reihe erst recht auf. */
     .tut .glyph { font-size: 24px; font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
     .tut .glyph svg { width: 25px; height: 25px; display: block; }
     .tut p { font-size: 14px; color: var(--ink-muted); margin-top: 3px; }
@@ -508,9 +512,27 @@
     }
 
     /* ── Verschenken / Erzähl davon ─────────────────────────────────────── */
+    /* ── Oma-Loops ──────────────────────────────────────────────────────
+       Die Videos sind mit kBackground (#FAF6EE) encodiert, tragen ihren
+       Hintergrund also mit. Deshalb stehen sie ausschließlich auf Abschnitten
+       in Papierfarbe — auf `--bg-subtle` stand sonst ein hellerer Kasten um
+       die Oma, den niemand gezeichnet hat. Die Maske blendet zusätzlich die
+       Kanten aus, damit auch bei minimalem Farbversatz keine Rechteckkante
+       stehen bleibt. Werte und Vorgehen wie in gruss.html. */
+    .oma-loop {
+      -webkit-mask-image:
+        linear-gradient(to right,  transparent 0, #000 9%, #000 91%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+      -webkit-mask-composite: source-in;
+              mask-image:
+        linear-gradient(to right,  transparent 0, #000 9%, #000 91%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+              mask-composite: intersect;
+    }
+
     .gift-grid { display: grid; gap: 20px; align-items: center; }
     .gift-art { margin: 0; max-width: 220px; }
-    .gift-art video { width: 100%; height: auto; border-radius: var(--radius); }
+    .gift-art video { width: 100%; height: auto; }
     .gift-body p { margin-top: 12px; color: var(--ink-muted); }
     .gift-body .oma-line { margin-top: 14px; font-size: 16px; }
     @media (min-width: 861px) {
@@ -538,7 +560,21 @@
 
     /* ── Schluss-Aufruf ─────────────────────────────────────────────────── */
     .closer { text-align: center; }
-    .closer .kaffee { width: 150px; margin: 0 auto 14px; height: auto; }
+    /* Unten trägt der Loop mehr leeren Rand als an den Seiten (unter den
+       Schuhen), deshalb blendet die untere Maske früher aus als die seitliche
+       — und der ausgeblendete Streifen wirkt schon als Abstand zur Headline.
+       Werte aus gruss.html, dort am selben Video ausgemessen. */
+    .closer .kaffee {
+      display: block; width: 158px; height: auto; margin: 0 auto 12px;
+      -webkit-mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
+      -webkit-mask-composite: source-in;
+              mask-image:
+        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
+        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
+              mask-composite: intersect;
+    }
     .closer .stores { justify-content: center; margin-left: auto; margin-right: auto; }
     .closer .price-note { text-align: center; }
 
@@ -774,9 +810,10 @@
             </div>
           </li>
           <li>
-            <!-- Dasselbe Bildzeichen wie in der App: der Klingelknopf aus dem
-                 Countdown-Screen (assets/images/oma-klingel.webp dort). -->
-            <div class="thumb"><img src="assets/oma-klingel.webp" width="300" height="235" alt="" loading="lazy"></div>
+            <!-- Eine Glocke, kein Bild der App-Klingel: die Reihe trägt fünf
+                 gezeichnete Zeichen, ein Foto dazwischen bricht sie auf. Das
+                 Wort in der Zeile darunter heißt ohnehin „Klingelknopf". -->
+            <div class="thumb"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.2a5.8 5.8 0 0 0-5.8 5.8c0 4.2-1.7 5.9-1.7 5.9h15S18 13.2 18 9a5.8 5.8 0 0 0-5.8-5.8Z"/><path d="M10.1 18.2a2 2 0 0 0 3.8 0"/></svg></span></div>
             <div>
               <h3>Die Oma rufen</h3>
               <p>Auf den Klingelknopf tippen — und sie kommt vorbei. Ungefragt, und selten dieselbe.</p>
@@ -794,7 +831,7 @@
     </section>
 
     <!-- ══ Verschenken / Erzähl davon ════════════════════════════════════ -->
-    <section class="section section-subtle" id="verschenken">
+    <section class="section section-rule" id="verschenken">
       <div class="wrap">
         <div class="gift-grid">
           <figure class="gift-art">
@@ -824,7 +861,7 @@
     </section>
 
     <!-- ══ Fragen ════════════════════════════════════════════════════════ -->
-    <section class="section" id="fragen">
+    <section class="section section-subtle" id="fragen">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Bevor du fragst</p>
@@ -888,7 +925,7 @@
     </section>
 
     <!-- ══ Schluss ═══════════════════════════════════════════════════════ -->
-    <section class="section section-subtle">
+    <section class="section">
       <div class="wrap closer">
         <!-- Bewusst OHNE autoplay: der Abbinder steht unter der Falte, und
              autoplay würde ihn trotz preload="none" sofort holen. Das Skript
