@@ -23,7 +23,11 @@ ironischen Ton geschrieben; hier stehen dieselben Angaben nüchtern.
   zusätzlich Sperrbildschirm-Widgets und eine Live Activity; ein täglicher
   Spruch um 12:30 Uhr als lokale Mitteilung (abschaltbar); ein Lebens-Zeitstrahl
   („Das Fax"); ein selbst gestarteter Zähler („Das Zählwerk"); ein
-  Postkarten-Studio zum Teilen des eigenen Stands.
+  Postkarten-Studio zum Teilen des eigenen Stands; ein Klingelknopf, der die
+  Turbo-Oma als kurzen Videoauftritt hereinholt.
+- Die App lässt sich weitergeben: auf dem iPhone als Apple-Geschenk, auf
+  Android als Gruß mit Link, bei dem der Empfänger selbst kauft. Die App
+  benennt auf beiden Wegen, wer bezahlt.
 - Die Stimme der App ist die „Turbo-Oma", eine gezeichnete Figur mit frechen
   Sprüchen zum Arbeitsleben.
 
