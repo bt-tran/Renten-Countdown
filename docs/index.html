@@ -271,9 +271,14 @@
       padding: 10px 12px; border-radius: var(--radius);
     }
     .nav a:hover { color: var(--accent); }
+    /* Der einzige Knopf, der über die ganze Seite mitfährt — und damit der
+       meistgetippte. Er stand auf 44 px, weil er sich die Polsterung der
+       Textlinks teilte; kMinTapTarget der App sind 54 px. min-height statt
+       mehr Polsterung, damit die Kopfzeile nicht höher wird. */
     .nav .nav-cta {
       color: #fff; background: var(--accent);
       border: var(--rule) solid var(--accent);
+      display: inline-flex; align-items: center; min-height: 54px;
     }
     .nav .nav-cta:hover { color: #fff; opacity: .9; }
     @media (max-width: 720px) { .nav .hide-sm { display: none; } }
@@ -564,7 +569,7 @@
               </span>
             </a>
           </div>
-          <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein Konto</p>
+          <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein&nbsp;Konto</p>
         </div>
 
         <figure class="hero-art">
@@ -783,7 +788,7 @@
             </span>
           </a>
         </div>
-        <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein Konto</p>
+        <p class="price-note">0,99 € · einmalig · keine Werbung, kein Abo, kein&nbsp;Konto</p>
       </div>
     </section>
   </main>
