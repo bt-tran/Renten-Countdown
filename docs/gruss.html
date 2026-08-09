@@ -15,8 +15,16 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="Renten Countdown">
-  <meta property="og:title" content="Die Rente ist dir gegönnt">
-  <meta property="og:description" content="Jemand findet, du bist reif für die Couch. Der ehrlichste Countdown bis zur Rente — Turbo-Oma inklusive.">
+  <!-- Arbeitsteilung in der Vorschaukarte: Der Absender schickt den Gruß mit
+       ("Die Rente ist dir gegönnt — …", `kGiftCaption` in der App), das
+       Kartenbild trägt denselben Satz als Aufmacher. Der Titel darunter sagt
+       deshalb, WAS das ist — die Zeile ein drittes Mal wäre die einzige Zeile
+       der Karte ohne neue Information. Er bleibt außerdem anlassneutral: die
+       App verschickt denselben Link mit `?anlass=aufmunterung|geburtstag`, und
+       die Karte kann dem nicht folgen (Crawler führen kein JS aus, siehe
+       Anlass-Skript unten). -->
+  <meta property="og:title" content="Der ehrlichste Countdown bis zur Rente">
+  <meta property="og:description" content="Jemand findet, du bist reif für die Couch. Dein Datum in 30 Einheiten, ein Turbo-Oma-Spruch am Tag. 0,99 € einmalig.">
   <meta property="og:url" content="https://renten-countdown.de/gruss">
   <meta property="og:image" content="https://renten-countdown.de/assets/og-gruss.jpg">
   <meta property="og:image:width" content="1200">
