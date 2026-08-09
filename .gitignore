@@ -1,3 +1,7 @@
 
 # Claude Code worktrees (parallel sessions) — never part of the main checkout
 .claude/worktrees/
+
+# Ausgabe der Browser-Automatisierung beim Prüfen der Seiten (Screenshots,
+# Snapshots) — entsteht bei jedem Lauf neu und gehört nie ins Repo.
+.playwright-mcp/
