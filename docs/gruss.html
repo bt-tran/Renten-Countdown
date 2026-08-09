@@ -46,20 +46,38 @@
     .eyebrow.gold { color: var(--gold); }
 
     .hero { padding-top: 32px; padding-bottom: 40px; }
-    .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
+    /* Zweispaltig: Titel (lead) über Details (rest) in der linken Spalte, die
+       Oma (art) überspannt rechts beide Reihen. `gap: 0 52px` hält den Abstand
+       Titel→Anhänger bei den h1-Margins (kein Reihen-Gap dazwischen). Die Reihe
+       `auto 1fr` + `align-items: start` fangen ab, dass das hohe Video die
+       Details nach unten zieht — die Oma zentriert sich selbst (`align-self`). */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "lead art"
+        "rest art";
+      align-items: start;
+      gap: 0 52px;
+    }
     .hero-grid > * { min-width: 0; }
+    .hero-lead { grid-area: lead; }
+    .gruss-art { grid-area: art; align-self: center; }
+    .hero-rest { grid-area: rest; }
     .hero .eyebrow { margin-bottom: 12px; }
     .hero h1 { margin: 0 0 8px; max-width: none; }
     .hero .lede { max-width: 46ch; margin-top: 16px; }
 
     /* Gruß-Anhänger — greift die _GiftTagPreview aus der App auf (dort heißt
-       das Widget noch so). Neutrale Schrift: das ist der Gruß des Absenders,
-       NICHT Omas Stimme. */
+       das Widget noch so). Kursiv gesetzt: der Gruß klingt wie ein Zuruf der
+       Oma an den Empfänger (Senior Bao, 09.08.2026). */
     .gruss-tag {
       position: relative; display: block; max-width: 42ch; margin: 4px 0 2px;
       background: var(--bg-subtle); border: var(--rule) solid var(--border);
       border-radius: var(--radius); padding: 15px 20px 15px 46px;
       font-size: 16px; line-height: 1.5; color: var(--ink);
+      font-style: italic;
     }
     /* Anhänger-Icon (Gold) statt eines Kreises — sonst liest sich der Punkt
        wie ein Radio-Button. */
@@ -106,18 +124,70 @@
        Gruß-Schlagzeile ist länger als die der Startseite und bräuchte
        zweispaltig unter 900 px mehr Breite, als die Textspalte hergibt. */
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 20px; }
-      /* Oma grüßt zuerst — aber als kompaktes Willkommensbild, damit die
-         Schlagzeile gleich danach kommt. */
-      .gruss-art { order: -1; }
+      /* Einspaltig: erst der Titel als Einstieg, dann die Oma, dann die
+         Details. Vorher stand die Oma zuerst und wirkte allein oben verloren. */
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+          "lead"
+          "art"
+          "rest";
+        gap: 16px;
+      }
+      .gruss-art { align-self: stretch; }
       .gruss-art video { max-height: 261px; }
       .gruss-art figcaption { margin-top: -18px; }
     }
     @media (max-width: 560px) {
-      .hero { padding-top: 20px; padding-bottom: 32px; }
-      .hero-grid { gap: 14px; }
-      .gruss-art video { max-height: 192px; }
-      .gruss-art figcaption { margin-top: -13px; font-size: 14px; }
+      /* Handy-Höhe ist knapp: der ganze Gruß-Hero inkl. Store-Button soll ohne
+         Scrollen auf eine Seite passen. Alles hier zahlt darauf ein — die
+         Reihenfolge bleibt Titel → Oma → Details, nur kompakter. Ziel: die
+         price-note steht auf dem kleinsten Zielgerät (iPhone SE, 375×667) noch
+         über der Falz. */
+      .hero { padding-top: 12px; padding-bottom: 24px; }
+      .hero-grid { gap: 10px; }
+      .hero .eyebrow { margin-bottom: 6px; }
+      .hero h1 { font-size: 26px; line-height: 1.1; }
+      /* Anhänger entschlackt: kein schwerer Kasten mehr, nur ein leichter
+         Gold-Akzent links — der mitgeschickte Gruß bleibt abgesetzt, kostet
+         aber weniger Höhe und Gewicht. */
+      .gruss-tag {
+        max-width: none; margin: 0;
+        padding: 2px 0 2px 16px;
+        background: none; border: none;
+        border-left: 3px solid var(--gold); border-radius: 0;
+        font-size: 15px;
+      }
+      .gruss-tag::before { display: none; }
+      /* Lede auf dem Handy ausgeblendet: sie wiederholt nur, was Titel und
+         kursiver Anhänger (Omas Zuruf) schon sagen — der frei werdende Platz
+         geht an die größere Oma. Auf Desktop bleibt die Lede. */
+      .hero .lede { display: none; }
+      /* Oma groß: Kopf, Megafon, Oberkörper bis unter den Rock — breit
+         angeschnitten, unten weich ausgeblendet, Seitenkanten gefedert. Die
+         Oma-Zitatzeile entfällt hier (der Gruß darunter trägt den Text), sonst
+         wirkt der Anschnitt mit Zeile darunter gestückelt. */
+      .gruss-art { align-self: stretch; overflow: hidden; }
+      /* Fester Seitenverhältnis-Ausschnitt statt fixer Höhe: sonst hängt der
+         gezeigte Oma-Anteil von der Viewport-Breite ab (breiter = flacherer
+         Streifen = zu viel oben/unten weg). 4/3 zeigt auf jeder Breite denselben
+         großen Ausschnitt Kopf → unter den Rock. */
+      .gruss-art video {
+        width: 100%; height: auto; aspect-ratio: 4 / 3; max-height: none;
+        object-fit: cover; object-position: center 13%;
+        -webkit-mask-image:
+          linear-gradient(to bottom, transparent 0, #000 4%, #000 82%, transparent 100%),
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+        -webkit-mask-composite: source-in;
+                mask-image:
+          linear-gradient(to bottom, transparent 0, #000 4%, #000 82%, transparent 100%),
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+                mask-composite: intersect;
+      }
+      .gruss-art figcaption { display: none; }
+      .stores { margin-top: 10px; }
+      .price-note { margin-top: 6px; }
     }
   </style>
 </head>
@@ -143,9 +213,18 @@
     <!-- ══ Gruß-Hero ═════════════════════════════════════════════════════ -->
     <section class="hero wrap" id="top">
       <div class="hero-grid">
-        <div>
+        <!-- Drei Blöcke: Titel (lead), Oma (art), Details (rest). Zweispaltig
+             stapeln lead+rest links, die Oma steht rechts daneben. Einspaltig
+             ordnet grid-template-areas sie zu Titel → Oma → Details — der Titel
+             trägt den Einstieg, sonst stünde die Oma verloren allein oben. Die
+             Oma bleibt im Markup zuletzt (dekorativ); die Anordnung macht die
+             Karte, nicht die DOM-Reihenfolge. -->
+        <div class="hero-lead">
           <p class="eyebrow gold">Ein Gruß für dich</p>
           <h1 id="gruss-headline">Die Rente ist dir gegönnt. Zähl schon mal mit.</h1>
+        </div>
+
+        <div class="hero-rest">
           <p class="gruss-tag" id="gruss-tag">Für dich — weil die Rente ruft und du längst zurückwinkst.</p>
           <p class="lede">
             Jemand findet, du hast dir den Feierabend verdient — und schickt dir den ehrlichsten

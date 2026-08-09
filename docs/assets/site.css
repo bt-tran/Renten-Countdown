@@ -148,7 +148,15 @@ p  { margin: 0; }
 .hero .lede { max-width: 46ch; }
 
 .hero-art { position: relative; margin: 0 calc(var(--pad-h) * -1); background: var(--bg-subtle); }
-.hero-art img { width: 100%; height: 198px; object-fit: cover; object-position: center 22%; }
+/* Volles Motiv im natürlichen Seitenverhältnis — kein harter Streifen-Anschnitt,
+   sonst bleibt auf schmalen Viewports nur Omas Kopf stehen. Der vh-Deckel hält das
+   fast quadratische Bild auf breiten Phones/Tablets kompakt; wird gedeckelt, sitzt
+   der Anschnitt mittig (Buggy bleibt im Bild), nicht kopflastig. */
+.hero-art img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 725 / 597; max-height: 58vh;
+  object-fit: cover; object-position: center;
+}
 .hero-art .bubble {
   position: absolute; left: var(--pad-h); bottom: -16px;
   background: var(--bg); border: var(--rule) solid var(--ink);
@@ -161,9 +169,10 @@ p  { margin: 0; }
   .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
   .hero-text { padding-top: 0; order: 1; }
   .hero-art { order: 2; margin: 0; background: none; }
-  /* Volle Illustration statt Anschnitt: Höhe ergibt sich aus dem Bild. */
+  /* Volle Illustration statt Anschnitt: Höhe ergibt sich aus dem Bild.
+     Kein vh-Deckel hier — sonst würde object-fit: fill das Bild stauchen. */
   .hero-art img {
-    height: auto; object-fit: fill;
+    height: auto; max-height: none; object-fit: fill;
     border: var(--rule) solid var(--border); border-radius: var(--radius);
   }
   .hero-art .bubble { left: 16px; bottom: 14px; font-size: 15px; }
