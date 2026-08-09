@@ -1056,7 +1056,12 @@
       // prefers-reduced-motion hält beide an — die CSS-Regel dafür erreicht
       // Video-Wiedergabe nicht, sie stoppt nur Animationen und Transitions.
       // Es fehlt dann nichts außer der Bewegung: jeder Poster ist exakt der
-      // erste Frame seines Loops. Derselbe Block steht in gruss.html.
+      // erste Frame seines Loops.
+      //
+      // Dieselbe Mechanik wie in gruss.html, mit einem Unterschied im Markup:
+      // dort steht ein Loop im Hero und trägt deshalb `autoplay`, damit er
+      // auch ohne JavaScript läuft. Hier steht keiner über der Falte, also
+      // tragen beide nur preload="none" und warten auf das Skript.
       var loops = document.querySelectorAll(".oma-loop");
 
       if (loops.length && stillPlease) {
