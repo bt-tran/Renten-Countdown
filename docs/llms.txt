@@ -23,8 +23,10 @@ ironischen Ton geschrieben; hier stehen dieselben Angaben nüchtern.
   zusätzlich Sperrbildschirm-Widgets und eine Live Activity; ein täglicher
   Spruch um 12:30 Uhr als lokale Mitteilung (abschaltbar); ein Lebens-Zeitstrahl
   („Das Fax"); ein selbst gestarteter Zähler („Das Zählwerk"); ein
-  Postkarten-Studio zum Teilen des eigenen Stands; ein Klingelknopf, der die
-  Turbo-Oma als kurzen Videoauftritt hereinholt.
+  Postkarten-Studio, das den eigenen Stand, die Statistiken, den Tagesspruch
+  und — sobald ein Zähler läuft — den Zählerstand als Karte ausgibt, ohne
+  festen Anlass, zum Teilen oder zum Sichern in der Fotomediathek;
+  ein Klingelknopf, der die Turbo-Oma als kurzen Videoauftritt hereinholt.
 - Die App lässt sich weitergeben: auf dem iPhone als Apple-Geschenk, auf
   Android als Gruß mit Link, bei dem der Empfänger selbst kauft. Die App
   benennt auf beiden Wegen, wer bezahlt.
@@ -64,8 +66,8 @@ lokal auf dem Gerät, werden nicht übertragen und beim Deinstallieren gelöscht
 
 - [App Store](https://apps.apple.com/de/app/id6779786185)
 - [Google Play](https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown)
-- [Instagram](https://www.instagram.com/rentencountdown/): täglicher Spruch der Turbo-Oma.
+- [Instagram](https://www.instagram.com/rentencountdown/)
 - [Facebook](https://www.facebook.com/RentenCountdown/)
 - Kontakt: traja.projects@gmail.com
 
-Stand: 5. August 2026
+Stand: 9. August 2026
