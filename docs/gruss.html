@@ -24,192 +24,53 @@
   <meta property="og:image:alt" content="Die Turbo-Oma ruft es mit dem Megafon heraus. Titel: Die Rente ist dir gegönnt.">
   <meta name="twitter:card" content="summary_large_image">
 
+  <!-- Gemeinsames Design-System für Start- und Gruß-Seite. -->
+  <link rel="stylesheet" href="/assets/site.css">
+
   <style>
-    /* ── Design-Tokens: 1:1 aus theme.dart der App (wie index.html) ─────── */
-    :root {
-      --bg:            #FAF6EE;
-      --bg-subtle:     #EDE5D5;
-      --ink:           #352515;
-      --ink-muted:     #574736;
-      --accent:        #8B1A1A;
-      --secondary:     #7A6A58;
-      --border:        #B8A890;
-      --disabled:      #D0C8B0;
-      --button-decent: #F0EADF;
-      --gold:          #9C7A2E;
+    /* Nur der Gruß-Hero. Alles darunter ist dieselbe Werbung wie auf der
+       Startseite und läuft deshalb über assets/site.css — die Bausteine
+       standen bis 08/2026 doppelt und liefen prompt auseinander.
 
-      --radius: 3px;
-      --rule: 1.5px;
-      --pad-h: 22px;
-      --measure: 1080px;
-
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: clip;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    }
-
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: var(--accent); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
-
-    .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 var(--pad-h); }
-
-    .skip {
-      position: absolute; left: -9999px; top: 0; z-index: 10;
-      background: var(--accent); color: #fff; padding: 10px 16px; border-radius: var(--radius);
-    }
-    .skip:focus { left: 12px; top: 12px; }
-
-    /* ── Typo-Rollen: gleiche Semantik wie in der App ─────────────────────
-       Werte 1:1 aus index.html. Die Gruß-Seite trug bis 08/2026 eine eigene,
-       eine Stufe größere Skala — beide Seiten stehen aber im selben Besuch
-       hintereinander (Gruß → Startseite), und dort fiel der Sprung auf. */
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 2.2px;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--secondary);
-      margin: 0;
-    }
+       Der Hero bleibt eigen: hier steht die persönliche Anrede, der Anhänger
+       mit der mitgeschickten Nachricht und das Megafon-Motiv des Gruß-Wegs
+       (nie ein Geschenkpaket — der Empfänger kauft selbst). */
     .eyebrow.gold { color: var(--gold); }
-    .oma-voice { font-style: italic; color: var(--ink); }
 
-    h1, h2, h3 { margin: 0; line-height: 1.07; letter-spacing: -0.3px; }
-    h1 { font-size: clamp(31px, 6vw, 58px); font-weight: 900; }
-    h2 { font-size: clamp(23px, 3.4vw, 36px); font-weight: 900; }
-    h3 { font-size: 17px; font-weight: 800; line-height: 1.25; }
-    p  { margin: 0; }
-
-    .lede { font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-muted); font-weight: 500; }
-
-    /* ── Kopfzeile ──────────────────────────────────────────────────────── */
-    .masthead {
-      position: sticky; top: 0; z-index: 5;
-      background: rgba(250, 246, 238, .92);
-      backdrop-filter: blur(8px);
-      border-bottom: var(--rule) solid var(--border);
-    }
-    .masthead .wrap { display: flex; align-items: center; gap: 20px; min-height: 62px; }
-    .wordmark {
-      font-weight: 900; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--ink); text-decoration: none; white-space: nowrap;
-    }
-    .wordmark .dot { color: var(--accent); }
-    .nav { margin-left: auto; display: flex; align-items: center; gap: 6px; }
-    /* min-height statt mehr Polsterung: der Knopf fährt über die ganze Seite
-       mit und lag auf 44 px — kMinTapTarget der App sind 54 px. Derselbe
-       Block steht in index.html. */
-    .nav .nav-cta {
-      color: #fff; background: var(--accent); border: var(--rule) solid var(--accent);
-      text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase; padding: 10px 12px; border-radius: var(--radius);
-      display: inline-flex; align-items: center; min-height: 54px;
-      transition: opacity .22s ease;
-    }
-    .nav .nav-cta:hover { color: #fff; opacity: .9; }
-    /* Der Knopf ruht, solange die echten Store-Knöpfe im Hero sichtbar sind —
-       Begründung und Mechanik stehen in index.html, hier gilt sie genauso. */
-    .masthead[data-cta="ruht"] .nav-cta { opacity: 0; visibility: hidden; }
-    @media (max-width: 400px) {
-      .masthead .wrap { gap: 12px; }
-      .wordmark { font-size: 13px; letter-spacing: 1px; }
-      .nav .nav-cta { padding: 10px 14px; }
-    }
-
-    /* ── Abschnitts-Rhythmus ──────────────────────────────────────────────
-       Taktung wie index.html: 40 px auf dem Handy, 64 px ab 861 px, und die
-       ruhigen Abschnitte tragen ihre Ober- und Unterlinie. */
-    .section { padding: 40px 0; }
-    .section-subtle {
-      background: var(--bg-subtle);
-      border-top: var(--rule) solid var(--border);
-      border-bottom: var(--rule) solid var(--border);
-    }
-    .section-head { max-width: 640px; margin-bottom: 20px; }
-    .section-head .eyebrow { margin-bottom: 8px; }
-    .section-head p { margin-top: 12px; }
-    @media (min-width: 861px) { .section { padding: 64px 0; } }
-
-    /* ── Gruß-Hero ──────────────────────────────────────────────────────── */
-    .hero { padding-top: 44px; padding-bottom: 48px; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
+    .hero { padding-top: 32px; padding-bottom: 40px; }
+    .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
     .hero-grid > * { min-width: 0; }
-    .hero .eyebrow { margin-bottom: 16px; }
-    .hero h1 { margin: 0 0 8px; }
-    .hero .lede { max-width: 46ch; margin-top: 20px; }
+    .hero .eyebrow { margin-bottom: 12px; }
+    .hero h1 { margin: 0 0 8px; max-width: none; }
+    .hero .lede { max-width: 46ch; margin-top: 16px; }
 
     /* Gruß-Anhänger — greift die _GiftTagPreview aus der App auf (dort heißt
-       das Widget noch so). Neutrale Schrift (Gruß des Absenders, NICHT Omas
-       Stimme). */
+       das Widget noch so). Neutrale Schrift: das ist der Gruß des Absenders,
+       NICHT Omas Stimme. */
     .gruss-tag {
       position: relative; display: block; max-width: 42ch; margin: 4px 0 2px;
       background: var(--bg-subtle); border: var(--rule) solid var(--border);
       border-radius: var(--radius); padding: 15px 20px 15px 46px;
       font-size: 16px; line-height: 1.5; color: var(--ink);
     }
-    /* Anhänger-Icon (Gold) statt eines Kreises — sonst liest sich der
-       Punkt wie ein Radio-Button. */
+    /* Anhänger-Icon (Gold) statt eines Kreises — sonst liest sich der Punkt
+       wie ein Radio-Button. */
     .gruss-tag::before {
       content: ""; position: absolute; left: 17px; top: 50%; transform: translateY(-50%);
       width: 20px; height: 20px;
       background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239C7A2E'><path d='M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58s1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z'/></svg>") no-repeat center / contain;
     }
 
-    /* Store-Knöpfe 1:1 aus index.html: gleich breit, nebeneinander, beim
-       Umbruch beide voll breit. Hier standen sie vorher content-breit und ohne
-       Deckel — auf dem Handy rutschte „Google Play" allein in die zweite Zeile
-       und war schmaler als der App-Store-Knopf darüber. Begründung der Werte
-       (Satzbreite gegen 320 px) steht in index.html. */
-    .stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; max-width: 470px; }
-    .store-btn {
-      flex: 1 1 150px;
-      display: inline-flex; align-items: center; gap: 11px;
-      min-height: 56px; /* kMinTapTarget mit Luft */
-      padding: 8px 14px;
-      border: var(--rule) solid var(--ink); border-radius: var(--radius);
-      background: var(--ink); color: var(--bg); text-decoration: none;
-    }
-    .store-icon { width: 25px; height: 25px; flex: none; }
-    .store-text { display: flex; flex-direction: column; }
-    .store-btn .kicker { font-size: 9.5px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 700; opacity: .75; }
-    .store-btn .name { font-size: 15px; font-weight: 800; letter-spacing: -0.2px; }
-    .store-btn:hover { background: var(--accent); border-color: var(--accent); }
-    .price-note { margin-top: 12px; font-size: 13px; color: var(--secondary); }
-
     .gruss-art { margin: 0; text-align: center; }
     /*
-      Der Hero ist derselbe Megafon-Loop, den die App auf dem Gruß-Weg zeigt
+      Der Hero-Loop ist derselbe, den die App auf dem Gruß-Weg zeigt
       (`HeroMotiv.megafon`). Die Datei ist quadratisch und trägt bewusst ~14 %
       Rand um die Figur — H.264/VP9 können keinen Alphakanal, also ist der Clip
       opak auf kBackground encodiert. Deshalb hier dieselbe Lösung wie in der
       App (`FeatheredEdges`): eine weiche Maske blendet die Kanten aus, statt
       auf ein pixelgenau gleiches Creme zu hoffen — der Decoder liefert je nach
-      Browser minimal andere Werte als `--bg`, und eine harte Kante würde das
-      als Kasten sichtbar machen. Der Rand der Quelle sorgt dafür, dass die
-      Maske nur Hintergrund frisst und nie die Kontur anschneidet.
-
-      Größen: das frühere Standbild war randlos freigestellt, der Loop trägt
-      seinen Rand mit (Figur ≈ 73 % der Bildhöhe). Alle max-height-Werte sind
-      deshalb um genau diesen Faktor angehoben, damit die Oma gleich groß
-      bleibt — auf schmalen Viewports geht das auf, auf dem Desktop begrenzt
-      die Spalte (443 px) sie auf ~323 px statt der früheren 460 px. Mehr gäbe
-      es nur gegen die Spaltenbreite, und die gehört der Headline.
+      Browser minimal andere Werte als `--bg`. Der Rand der Quelle sorgt dafür,
+      dass die Maske nur Hintergrund frisst und nie die Kontur anschneidet.
     */
     .gruss-art video {
       width: auto; height: auto;
@@ -226,130 +87,29 @@
     }
     /*
       Negativer Abstand, weil das Video unter den Schuhen ~13 % leeren Rand
-      trägt (s. oben). Ohne ihn stünde die Zeile optisch doppelt so weit weg wie
-      unter dem früheren, randlos freigestellten Standbild — die Oma hing lose
-      über ihrem eigenen Zitat. Der Wert ist je Haltepunkt ~7 % der Videohöhe,
-      dasselbe Verhältnis, mit dem die App den Text auf den Videofuß schiebt
-      (_heroTextOverlap 18 auf 260, verschenken_screen.dart). Der untere
-      Maskenverlauf blendet genau diesen Fuß aus, die Zeile liegt also auf
-      Hintergrund, nie auf Bild.
+      trägt. Ohne ihn hinge die Oma lose über ihrem eigenen Zitat. Der Wert ist
+      je Haltepunkt ~7 % der Videohöhe, dasselbe Verhältnis, mit dem die App
+      den Text auf den Videofuß schiebt (_heroTextOverlap 18 auf 260,
+      verschenken_screen.dart).
     */
     .gruss-art figcaption { margin-top: -31px; font-size: 16px; color: var(--ink); }
 
+    /* Eigener Haltepunkt, nicht der 861-px-Umbruch der übrigen Seite: die
+       Gruß-Schlagzeile ist länger als die der Startseite und bräuchte
+       zweispaltig unter 900 px mehr Breite, als die Textspalte hergibt. */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; gap: 20px; }
-      /* Oma grüßt weiterhin zuerst — aber als kompaktes Willkommens-Bild,
-         nicht bildschirmfüllend, damit die Headline gleich danach kommt. */
+      /* Oma grüßt zuerst — aber als kompaktes Willkommensbild, damit die
+         Schlagzeile gleich danach kommt. */
       .gruss-art { order: -1; }
       .gruss-art video { max-height: 261px; }
       .gruss-art figcaption { margin-top: -18px; }
     }
     @media (max-width: 560px) {
-      .hero { padding-top: 20px; padding-bottom: 40px; }
+      .hero { padding-top: 20px; padding-bottom: 32px; }
       .hero-grid { gap: 14px; }
       .gruss-art video { max-height: 192px; }
       .gruss-art figcaption { margin-top: -13px; font-size: 14px; }
-    }
-
-    /* ── Die zwei Phasen ────────────────────────────────────────────────── */
-    .phase { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: center; }
-    .phase-shot { border: var(--rule) solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg); }
-    .phase-body .eyebrow { margin-bottom: 12px; }
-    .phase-body h3 { font-size: clamp(23px, 2.6vw, 28px); font-weight: 900; }
-    .phase-body p { margin-top: 14px; color: var(--ink-muted); }
-    .phase-body .oma-line { margin-top: 18px; font-size: 17px; }
-
-    .crossing { display: flex; align-items: center; gap: 14px; margin: 30px 0; }
-    .crossing::before, .crossing::after { content: ""; flex: 1; height: var(--rule); background: var(--border); }
-    .crossing span {
-      font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); white-space: nowrap;
-    }
-    @media (max-width: 820px) {
-      .phase { grid-template-columns: 1fr; gap: 26px; }
-      .phase-shot { max-width: 280px; }
-    }
-
-    /* ── Funktionen (3 Kacheln) ─────────────────────────────────────────── */
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--rule); background: var(--border); border: var(--rule) solid var(--border); }
-    .feature { background: var(--bg); padding: 30px 26px; }
-    .feature .tag { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
-    .feature h3 { margin: 10px 0 8px; }
-    .feature p { color: var(--secondary); font-size: 15px; }
-    @media (max-width: 860px) { .features { grid-template-columns: 1fr; } }
-
-    /* ── Turbo-Oma ──────────────────────────────────────────────────────── */
-    .oma-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: center; }
-    .oma-art { border: var(--rule) solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
-    .sprueche { list-style: none; margin: 24px 0 0; padding: 0; }
-    .sprueche li { border-top: var(--rule) solid var(--border); padding: 14px 0; font-size: 17px; }
-    .sprueche li:last-child { border-bottom: var(--rule) solid var(--border); }
-    @media (max-width: 820px) { .oma-grid { grid-template-columns: 1fr; gap: 30px; } }
-
-    /* ── Schluss-Aufruf ─────────────────────────────────────────────────── */
-    .closer { text-align: center; }
-    /*
-      Abbinder-Loop: dieselbe Kaffee-Oma, die die App im Kaffee-Screen zeigt.
-      Maske wie dort (`FeatheredEdges` in kaffee_screen.dart), Werte nach dem
-      gemessenen Rand der Quelle (links 9,5 %, rechts 16,9 %, oben 10 %), damit
-      sie Blumenvase und Dutt nicht anschneidet.
-
-      Der Fuß ist der Sonderfall: die Quelle ist dort bündig geschnitten (4 px
-      Rand), in der App fällt das nicht auf, weil das Video in einer Karte sitzt
-      und der Schnitt an deren Kante liegt. Frei auf der Seite las sich dieselbe
-      Kante als abgeschnittenes Bild. Der kräftige untere Verlauf löst Tischfuß
-      und Beine stattdessen in den Hintergrund auf — nichts wird dazuerfunden,
-      es endet nur weich statt hart. 22 % ist keine freie Zahl, sondern
-      `kOmaSplashEdgeFeather` aus dem Design-System, das genau dafür da ist.
-      Der untere Abstand ist entsprechend kleiner: der ausgeblendete Streifen
-      wirkt bereits als Abstand zur Headline.
-    */
-    .closer .kaffee {
-      display: block; width: 158px; height: auto; margin: 0 auto 12px;
-      -webkit-mask-image:
-        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
-        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
-      -webkit-mask-composite: source-in;
-              mask-image:
-        linear-gradient(to right,  transparent 0, #000 8%, #000 88%, transparent 100%),
-        linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
-              mask-composite: intersect;
-    }
-    .closer .stores { justify-content: center; margin-left: auto; margin-right: auto; }
-    .closer .price-note { text-align: center; }
-
-    /* ── Fuß ────────────────────────────────────────────────────────────── */
-    .foot { border-top: var(--rule) solid var(--border); padding: 34px 0; font-size: 13px; color: var(--secondary); }
-    .foot .wrap { display: flex; flex-wrap: wrap; gap: 20px 26px; align-items: center; }
-    .foot a { color: var(--secondary); text-decoration: none; }
-    .foot a:hover { color: var(--accent); text-decoration: underline; }
-    /* Aufteilung wie in index.html: Feindruck links, Knöpfe rechts. */
-    .foot .foot-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
-    .foot .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
-
-    /* Social: Glyph inline wie bei .store-icon — kein Fremd-Request, kein
-       Instagram-Widget, damit die Datenschutzerklärung ohne Drittanbieter
-       korrekt bleibt. currentColor spiegelt die Fuß-Textfarbe. */
-    .foot .social { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-    .foot .social a {
-      display: inline-flex; align-items: center; gap: 9px;
-      min-height: 54px; /* kMinTapTarget */
-      padding: 0 15px;
-      border: var(--rule) solid var(--border);
-      border-radius: var(--radius);
-      font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-    }
-    .foot .social a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
-    .foot .social svg { width: 18px; height: 18px; flex: none; }
-    /* Umbruchpunkte wie in index.html — Begründung steht dort. */
-    @media (max-width: 860px) {
-      .foot .wrap { flex-direction: column; align-items: flex-start; gap: 22px; }
-      .foot .social { margin-left: 0; order: -1; }
-    }
-    @media (max-width: 620px) {
-      .foot .wrap { align-items: stretch; }
-      .foot .social { align-self: stretch; }
-      .foot .social a { flex: 1 1 0; justify-content: center; padding: 0 10px; }
     }
   </style>
 </head>
@@ -358,8 +118,12 @@
 
   <header class="masthead">
     <div class="wrap">
-      <a class="wordmark" href="./">Renten&nbsp;Countd<span class="dot">ō</span>wn</a>
+      <a class="wordmark" href="#top">Renten&nbsp;Countd<span class="dot">ō</span>wn</a>
       <nav class="nav" aria-label="Seitenbereiche">
+        <a class="hide-sm" href="#oma">Turbo-Oma</a>
+        <a class="hide-sm" href="#phasen">Die zwei Phasen</a>
+        <a class="hide-sm" href="#funktionen">Funktionen</a>
+        <a class="hide-sm" href="#fragen">Fragen</a>
         <!-- Ziel wird für Android-Besucher unten per Script auf Google Play
              gesetzt; ohne JavaScript bleibt der App-Store-Link stehen. -->
         <a class="nav-cta" id="nav-store" href="https://apps.apple.com/de/app/id6779786185">Laden</a>
@@ -430,100 +194,224 @@
       </div>
     </section>
 
-    <!-- ══ Was drin steckt ═══════════════════════════════════════════════ -->
-    <section class="section section-subtle" id="was-drin">
+    <!-- ══ Omas Rechnung ═════════════════════════════════════════════════ -->
+    <section class="rechnung section-subtle" id="countdown">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Was drin steckt</p>
-          <h2>Eine App, zwei Tonlagen.</h2>
-          <p class="lede">
-            Bis zur Rente redet sie wie ein Kollege, der auch keine Lust mehr hat.
-            Ab dem Rentendatum kippt sie — und feiert dich. Der Wechsel passiert von allein.
-          </p>
-        </div>
-
-        <div class="phase">
-          <div class="phase-shot">
-            <img src="assets/screen-countdown.png" alt="Der Countdown-Screen: bis zur Rente noch 10.802 Tage, darunter Arbeitstage, Montage und Steuererklärungen." width="1320" height="2868" loading="lazy">
-          </div>
-          <div class="phase-body">
-            <p class="eyebrow">Phase 1 — Vor der Rente</p>
-            <h3>Die Restzeit, in echtem Leben gezählt.</h3>
-            <p>
-              Tage sind abstrakt. 1.543 Montage sind es nicht. Die App rechnet deine Restzeit in
-              Einheiten um, die du wirklich spürst: Arbeitstage, Montage, Steuererklärungen — und
-              wie viele Fußball-WMs noch dazwischen liegen.
-            </p>
-            <p class="oma-line oma-voice">„Du tippst noch. Ich häkle schon.“</p>
-          </div>
-        </div>
-
-        <div class="crossing"><span>Am Rententag kippt der Ton</span></div>
-
-        <div class="phase">
-          <div class="phase-shot">
-            <img src="assets/screen-ruhestand.png" alt="Der Ruhestand-Screen: seit dem Rentendatum gezählte Tage in Rente, mit Abzeichen bis „Legendär“ und Tassen Kaffee in Ruhe." width="1320" height="2868" loading="lazy">
-          </div>
-          <div class="phase-body">
-            <p class="eyebrow">Phase 2 — Im Ruhestand</p>
-            <h3>Kein Countdown mehr. Eine Bilanz.</h3>
-            <p>
-              Ab dem ersten Rententag zählt die App aufwärts — und der Zynismus ist weg. Jetzt geht
-              es um Tassen Kaffee in Ruhe, Tatort-Sonntage und Abzeichen vom Neuling bis zum Legendär.
-            </p>
-            <p class="oma-line oma-voice">„Wer zuletzt lacht, ist in Rente.“</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ Funktionen (3 Kacheln) ════════════════════════════════════════ -->
-    <section class="section" id="funktionen">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Und sonst so</p>
-          <h2>Alles, was die Wartezeit erträglich macht.</h2>
-        </div>
-        <div class="features">
-          <div class="feature">
-            <span class="tag">Homescreen</span>
-            <h3>Widgets &amp; Live Activity</h3>
-            <p>Drei Widget-Größen für den Homescreen. Auf dem iPhone kommt der Sperrbildschirm dazu — und die Live Activity hält den Countdown im Blick, ohne die App zu öffnen.</p>
-          </div>
-          <div class="feature">
-            <span class="tag">12:30 Uhr</span>
-            <h3>Der Tagesspruch</h3>
-            <p>Einmal am Tag meldet sich die Turbo-Oma mit einem frischen Spruch. Pünktlich zur Mittagspause, wenn der Tag am längsten wirkt. Abschaltbar.</p>
-          </div>
-          <div class="feature">
-            <span class="tag">Zum Teilen</span>
-            <h3>Postkarten-Studio</h3>
-            <p>Stand, Statistiken, Tagesspruch oder Zählerstand als Karte. Teilen oder in den Fotos sichern — zum Abschied, zum Geburtstag, einfach mittwochs.</p>
-          </div>
-        </div>
+      <p class="eyebrow">Omas Rechnung</p>
+      <blockquote class="zettel">
+        <p class="sagen oma-voice">„Sagen wir, du hörst am <b>1. Januar 2056</b> auf.“</p>
+        <p class="zahl" id="rechnung-zahl">10.736</p>
+        <p class="einheit" id="rechnung-einheit">Tage</p>
+        <p class="laeuft">und <span id="rechnung-rest">ein paar Stunden</span></p>
+        <p class="dazu oma-voice">„Der Rest zählt sich von allein runter. Ich schau nur zu.“</p>
+      </blockquote>
+      <p class="hinweis">In der App steht hier <b>dein</b> Datum — und dieselbe Zahl in 30 Einheiten, die du wirklich spürst.</p>
       </div>
     </section>
 
     <!-- ══ Turbo-Oma ═════════════════════════════════════════════════════ -->
-    <section class="section section-subtle" id="oma">
+    <section class="section" id="oma">
       <div class="wrap">
-        <div class="oma-grid">
-          <div class="oma-art">
-            <img src="assets/oma-trex.webp" alt="Die Turbo-Oma reitet mit Gehstock durch den Dschungel — auf einem T-Rex." width="611" height="500" loading="lazy">
-          </div>
+        <div class="section-head">
+          <p class="eyebrow">Die Stimme der App</p>
+          <h2>Die Turbo-Oma sagt, was du denkst.</h2>
+        </div>
+        <div class="rail">
+          <div class="spruch"><q>Arbeit adelt. Sagt, wer nicht viel arbeiten braucht.</q><span class="who">Turbo-Oma · Montag</span></div>
+          <div class="spruch"><q>Der Drucker streikt. Nimm dir ein Beispiel.</q><span class="who">Turbo-Oma · Dienstag</span></div>
+          <div class="spruch"><q>Großraumbüro. Viel Raum für deinen Seufzer.</q><span class="who">Turbo-Oma · Mittwoch</span></div>
+          <div class="spruch"><q>Feierabend. Das schönste Wort im Kalender.</q><span class="who">Turbo-Oma · Donnerstag</span></div>
+        </div>
+        <p class="rail-hint">← wischen für mehr</p>
+        <a class="oma-follow" href="https://www.instagram.com/rentencountdown/">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13-.67-.66-1.34-1.08-2.13-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          Die Turbo-Oma auf Instagram
+        </a>
+      </div>
+    </section>
+
+    <!-- ══ Der Tagesspruch ═══════════════════════════════════════════════ -->
+    <section class="section section-subtle" id="tagesspruch">
+      <div class="wrap split">
+        <div class="section-head">
+          <p class="eyebrow">Jeden Tag um 12:30</p>
+          <h2>Pünktlich zur Mittagspause.</h2>
+          <p class="push-note">
+            Ein Spruch am Tag, nie zweimal derselbe — und abschaltbar, falls die Oma mal zu laut wird.
+          </p>
+        </div>
+        <!-- Nachbau, kein Screenshot: der Satz darin ist die echte erste
+             Mitteilung aus der App (kErsterTagesSpruch). -->
+        <div class="banner">
+          <div class="ic"><img src="assets/icon-192.png" width="192" height="192" alt="" loading="lazy"></div>
           <div>
-            <p class="eyebrow">Die Stimme in der App</p>
-            <h2>Die Turbo-Oma sagt, was du denkst.</h2>
-            <p class="lede" style="margin-top:14px">
-              Sie ist längst durch mit dem Arbeitsleben und nimmt kein Blatt vor den Mund.
-              Frech, nie gemein — und ohne ein einziges Motivationsposter.
-            </p>
-            <ul class="sprueche">
-              <li class="oma-voice">„Arbeit adelt. Sagt, wer nicht viel arbeiten braucht.“</li>
-              <li class="oma-voice">„Der Drucker streikt. Nimm dir ein Beispiel.“</li>
-              <li class="oma-voice">„Großraumbüro. Viel Raum für deinen Seufzer.“</li>
-            </ul>
+            <p class="t"><span>Renten Countdown</span><span>jetzt</span></p>
+            <p class="m oma-voice">„Ich zähl ab heute mit. Nicht dass sich noch ein Arbeitstag rausmogelt.“</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Die zwei Phasen ═══════════════════════════════════════════════ -->
+    <section class="section" id="phasen">
+      <div class="wrap split">
+        <div class="section-head">
+          <p class="eyebrow">Das Herzstück</p>
+          <h2>Eine App, zwei Tonlagen.</h2>
+          <p class="lede">
+            Bis zur Rente redet die App wie ein Kollege, der auch keine Lust mehr hat.
+            Ab dem Rentendatum kippt sie — und feiert dich. Der Wechsel passiert von allein.
+          </p>
+          <div class="crossing"><span>Am Rententag kippt der Ton</span></div>
+        </div>
+        <div class="duo">
+          <figure>
+            <div class="shot">
+              <img src="assets/screen-countdown.png" width="1320" height="2868" loading="lazy"
+                   alt="Der Countdown-Screen der App: bis zum 01. Januar 2056 noch 10.802 Tage, darunter Arbeitstage, Montage und Steuererklärungen.">
+            </div>
+            <figcaption>
+              <span class="tag">Phase 1</span>
+              <strong>Vor der Rente</strong>
+              <p>Trocken, ehrlich, mit schwarzem Humor. 10.802 Tage — oder 1.543 Montage.</p>
+            </figcaption>
+          </figure>
+          <figure>
+            <div class="shot">
+              <img src="assets/screen-ruhestand.png" width="1320" height="2868" loading="lazy"
+                   alt="Der Ruhestand-Screen der App: seit dem 05. Juni 1996 sind es 10.957 Tage in Rente, mit Abzeichen bis „Legendär“ und gezählten Tassen Kaffee in Ruhe.">
+            </div>
+            <figcaption>
+              <span class="tag">Phase 2</span>
+              <strong>Im Ruhestand</strong>
+              <p>Warm, gelassen, ohne Sarkasmus. Zählt aufwärts, Abzeichen bis Legendär.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Funktionen ════════════════════════════════════════════════════ -->
+    <section class="section tut section-subtle" id="funktionen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Was sie sonst noch treibt</p>
+          <h2>Sie hat viel Zeit. Du nicht.</h2>
+        </div>
+        <ul>
+          <li>
+            <div class="thumb"><span class="glyph" aria-hidden="true">30</span></div>
+            <div>
+              <h3>Montage statt Tage</h3>
+              <p>Deine Restzeit in 30 Einheiten, die du wirklich spürst: Arbeitstage, Zeitumstellungen, Steuererklärungen.</p>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><span class="glyph"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="8.5" height="8.5" rx="2.2"/><rect x="13" y="2.5" width="8.5" height="8.5" rx="2.2"/><rect x="2.5" y="13" width="8.5" height="8.5" rx="2.2"/><rect x="13" y="13" width="8.5" height="8.5" rx="2.2"/></svg></span></div>
+            <div>
+              <h3>Widgets &amp; Live Activity</h3>
+              <p>Drei Größen für den Homescreen. Auf dem iPhone kommt der Sperrbildschirm dazu — ohne die App zu öffnen.</p>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><path d="M3.5 7.5 12 13.5 20.5 7.5"/></svg></span></div>
+            <div>
+              <h3>Postkarten-Studio</h3>
+              <p>Stand, Statistiken, Tagesspruch oder Zählerstand als Karte. Teilen oder sichern — zum Abschied, zum Geburtstag, einfach mittwochs.</p>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><span class="glyph" aria-hidden="true">07</span></div>
+            <div>
+              <h3>Zählwerk &amp; Fax</h3>
+              <p>Eigene Zähler mit echten Flip-Ziffern. Und dein Leben als Ausdruck, Jahr für Jahr.</p>
+            </div>
+          </li>
+          <li>
+            <!-- Eine Glocke, kein Bild der App-Klingel: die Reihe trägt fünf
+                 gezeichnete Zeichen, ein Foto dazwischen bricht sie auf. Das
+                 Wort in der Zeile darunter heißt ohnehin „Klingelknopf". -->
+            <div class="thumb"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.2a5.8 5.8 0 0 0-5.8 5.8c0 4.2-1.7 5.9-1.7 5.9h15S18 13.2 18 9a5.8 5.8 0 0 0-5.8-5.8Z"/><path d="M10.1 18.2a2 2 0 0 0 3.8 0"/></svg></span></div>
+            <div>
+              <h3>Die Oma rufen</h3>
+              <p>Auf den Klingelknopf tippen — und sie kommt vorbei. Ungefragt, und selten dieselbe.</p>
+            </div>
+          </li>
+          <li>
+            <div class="thumb"><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.5h3"/></svg></span></div>
+            <div>
+              <h3>Bleibt auf dem Gerät</h3>
+              <p>Kein Konto, kein Login, kein Server. Die App funktioniert komplett ohne Internet.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ══ Fragen ════════════════════════════════════════════════════════ -->
+    <!-- Auf Papier statt auf der ruhigen Fläche: die Startseite schiebt vor
+         die Fragen den Abschnitt „Zum Weitergeben", der hier fehlt (der
+         Empfänger steht schon am Ende dieses Wegs). Ohne ihn stießen zwei
+         ruhige Flächen aneinander und ergäben ein Band mit Doppellinie. -->
+    <section class="section" id="fragen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Bevor du fragst</p>
+          <h2>Kurz und ehrlich.</h2>
+        </div>
+
+        <div class="faq">
+          <details open>
+            <summary>Was kostet die App?</summary>
+            <div class="answer">
+              <p>0,99 € einmalig — im App Store wie bei Google Play. Danach nichts mehr: keine Werbung, kein Abo, keine gesperrten Funktionen.</p>
+              <p>In der App gibt es einen freiwilligen Kaffee-Tipp für den Entwickler. Der schaltet nichts frei — die App ist ohne ihn vollständig.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Ist das ein Rentenrechner?</summary>
+            <div class="answer">
+              <p>Nein. Die App rechnet nicht aus, wie viel Rente du bekommst, und berät dich nicht bei Finanzen. Sie zählt die Tage bis zu deinem Rentendatum — mehr nicht, aber das mit Haltung.</p>
+              <p>Wenn du eine verbindliche Auskunft zu deiner Rente brauchst, ist die Deutsche Rentenversicherung die richtige Adresse.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Woher kennt die App mein Rentendatum?</summary>
+            <div class="answer">
+              <p>Du gibst beim Start dein Geburtsdatum ein, und die App schlägt dir das gesetzliche Datum vor. Übernehmen oder überschreiben — wenn du früher raus willst oder einen eigenen Termin im Kopf hast, zählt deiner.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Was passiert mit meinen Daten?</summary>
+            <div class="answer">
+              <p>Sie bleiben auf deinem Gerät. Die App hat kein Konto, keinen Server und kein Tracking — Geburtsdatum, Einstellungen und Zählerstände liegen lokal auf dem Handy. Deinstallieren löscht alles.</p>
+              <p>Details stehen in der <a href="datenschutz">Datenschutzerklärung</a>.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Gibt es die App auch für Android?</summary>
+            <div class="answer">
+              <p>Ja. Die App gibt es für iPhone im <a href="https://apps.apple.com/de/app/id6779786185">App Store</a> und für Android im <a href="https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown">Play Store</a>.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Ich bin schon in Rente. Bringt mir das was?</summary>
+            <div class="answer">
+              <p>Ja. Trag dein Rentendatum aus der Vergangenheit ein, und die App startet direkt in Phase 2: sie zählt, wie lange du schon frei bist, und vergibt Abzeichen bis zum Legendär.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Welche Geräte werden unterstützt?</summary>
+            <div class="answer">
+              <p>iPhone ab iOS 14 und Android-Geräte ab Android 7, jeweils im Hochformat — so steht es auch in den beiden Stores. Die Widgets und die Live Activity auf dem iPhone brauchen iOS 17. Die App folgt deiner eingestellten Systemschriftgröße.</p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -531,18 +419,11 @@
     <!-- ══ Schluss ═══════════════════════════════════════════════════════ -->
     <section class="section">
       <div class="wrap closer">
-        <!--
-          Der Loop zeigt eine andere Einstellung als das frühere Standbild:
-          näher dran, ohne Kuchen, dafür mit dampfendem Kaffee und rührendem
-          Löffel. Alt-Text und Poster tragen deshalb das, was wirklich zu sehen
-          ist. Das Standbild bleibt in `assets/` — index.html nutzt es weiter.
-
-          Bewusst OHNE `autoplay`: der Abbinder steht unter der Falte, und
-          `autoplay` würde ihn trotz preload="none" sofort holen. Das Skript
-          startet ihn, sobald er in Sicht kommt. Ohne JavaScript bleibt hier das
-          Poster stehen — für ein schmückendes Schlussbild der richtige Tausch,
-          anders als beim Hero, der ohne JS laufen muss.
-        -->
+        <!-- Bewusst OHNE autoplay: der Abbinder steht unter der Falte, und
+             autoplay würde ihn trotz preload="none" sofort holen. Das Skript
+             startet ihn, sobald er in Sicht kommt. Ohne JavaScript bleibt das
+             Poster stehen — für ein schmückendes Schlussbild der richtige
+             Tausch. Derselbe Block steht in gruss.html. -->
         <video class="kaffee oma-loop" width="592" height="480"
                muted loop playsinline disablepictureinpicture preload="none"
                poster="assets/oma-kaffee-poster.webp"
@@ -550,9 +431,9 @@
           <source src="assets/oma-kaffee.webm" type="video/webm">
           <source src="assets/oma-kaffee.mp4" type="video/mp4">
         </video>
-        <h2>Der Countdown läuft für dich sowieso.</h2>
+        <h2>Der Countdown läuft ohnehin.</h2>
         <p class="lede" style="margin:14px auto 0; max-width:44ch">
-          Jetzt zählt ihn wenigstens einer mit — und du gewöhnst dich schon mal daran, wie sich Ruhe anfühlt.
+          Du kannst ihn auch mitzählen — und dich schon mal daran gewöhnen, wie sich Ruhe anfühlt.
         </p>
         <div class="stores">
           <a class="store-btn" href="https://apps.apple.com/de/app/id6779786185">
@@ -593,40 +474,19 @@
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.09 24 18.1 24 12.07z"/></svg>
           Facebook
         </a>
-        <!-- Derselbe Block steht ein zweites Mal in index.html. -->
+        <!-- Derselbe Block steht ein zweites Mal in gruss.html. -->
       </nav>
     </div>
   </footer>
 
+  <!-- Gemeinsames Seiten-Skript: Store-Ziel, ruhender Kopfzeilen-Knopf,
+       Omas Rechnung, Oma-Loops. Stand bis 08/2026 in jeder Seite noch
+       einmal. -->
+  <script src="/assets/site.js"></script>
+
   <script>
     (function () {
       "use strict";
-
-      // ── „Laden"-Knopf in der Kopfzeile ─────────────────────────────────
-      // Der Knopf trägt den App-Store-Link statisch im Markup — der gilt ohne
-      // JavaScript und für Crawler. Meldet sich der Browser als Android, zeigt
-      // er stattdessen auf Google Play; sonst schickte ein einzelner Knopf die
-      // halbe Besucherschaft in den falschen Store. Bewusst nur das Link-Ziel:
-      // KEIN Auto-Redirect (siehe Kommentar an den Store-Buttons im Hero).
-      if (/Android/i.test(navigator.userAgent)) {
-        var cta = document.getElementById("nav-store");
-        if (cta) cta.href = "https://play.google.com/store/apps/details?id=de.tranbao.rentencountdown";
-      }
-
-      // Und er ruht, solange die Store-Knöpfe im Hero zu sehen sind — dort
-      // wäre er nur eine dritte Kopie derselben Aufforderung. Der negative
-      // rootMargin ist die Höhe der Kopfzeile. Dieselbe Mechanik wie in
-      // index.html; ohne JavaScript steht der Knopf durchgehend da.
-      var kopf = document.querySelector(".masthead");
-      var heroStores = document.querySelector(".hero .stores");
-      if (kopf && heroStores && window.IntersectionObserver) {
-        kopf.dataset.cta = "ruht";
-        new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            kopf.dataset.cta = entry.isIntersecting ? "ruht" : "wach";
-          });
-        }, { rootMargin: "-62px 0px 0px 0px" }).observe(heroStores);
-      }
 
       // ── Anlass-Personalisierung ────────────────────────────────────────
       // Der Verschenken-Link der App trägt optional ?anlass=… — das tauscht
@@ -651,56 +511,6 @@
         var t = document.getElementById("gruss-tag");
         if (h) h.textContent = v.h1;
         if (t) t.textContent = v.tag;
-      }
-
-      // ── Oma-Loops: Bewegung nur, wenn gewollt und sichtbar ──────────────
-      // Zwei Loops auf der Seite (Hero oben, Abbinder unten). Der Hero trägt
-      // `autoplay` im Markup und läuft damit auch ohne JavaScript. Der
-      // Abbinder steht unter der Falte und lädt mit preload="none" — er wird
-      // erst geholt, wenn er in Sicht kommt; wer nie so weit scrollt, zahlt
-      // seine ~250 KB nicht. Aus dem Bild gescrollte Loops pausieren wieder.
-      //
-      // prefers-reduced-motion hält beide an — die CSS-Regel dafür erreicht
-      // Video-Wiedergabe nicht, sie stoppt nur Animationen und Transitions.
-      // Es fehlt dann nichts außer der Bewegung: jeder Poster ist exakt der
-      // erste Frame seines Loops.
-      var loops = document.querySelectorAll(".oma-loop");
-      var stillPlease = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
-
-      if (loops.length && stillPlease) {
-        var each = function (fn) { Array.prototype.forEach.call(loops, fn); };
-
-        var setLoopState = function () {
-          each(function (v) {
-            if (stillPlease.matches) {
-              v.removeAttribute("autoplay");
-              v.pause();
-              v.currentTime = 0;
-            } else if (v.dataset.inView === "1") {
-              var started = v.play();
-              if (started) started.catch(function () { /* Autoplay abgelehnt — Poster bleibt stehen. */ });
-            }
-          });
-        };
-
-        if (window.IntersectionObserver) {
-          var watcher = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              var v = entry.target;
-              v.dataset.inView = entry.isIntersecting ? "1" : "0";
-              if (!entry.isIntersecting) { v.pause(); return; }
-              // Erst jetzt laden — vorher stand preload="none" im Markup.
-              if (v.preload === "none") { v.preload = "auto"; v.load(); }
-            });
-            setLoopState();
-          }, { threshold: 0.25 });
-          each(function (v) { watcher.observe(v); });
-        } else {
-          each(function (v) { v.dataset.inView = "1"; if (v.preload === "none") { v.preload = "auto"; v.load(); } });
-          setLoopState();
-        }
-
-        if (stillPlease.addEventListener) stillPlease.addEventListener("change", setLoopState);
       }
     })();
   </script>
