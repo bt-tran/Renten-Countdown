@@ -43,7 +43,7 @@ Die App kennt zwei Stimmungen. Bis zum großen Tag läuft der **Countdown**: dir
 - **Kuriose Statistiken** — wie viele Montage, Meetings und Kaffeepausen noch vor dir liegen.
 - **Eine Oma mit loser Zunge** — freche Sprüche und Cameo-Auftritte, die keiner bestellt hat.
 - **Tagesspruch um 12:30** — pünktlich zur Mittagspause, frei Haus.
-- **Postkarten-Studio** — teilbare Postkarten, damit auch die Kollegen wissen, woran sie sind.
+- **Postkarten-Studio** — Stand, Statistiken, Tagesspruch oder Zählerstand als Karte zum Teilen oder Sichern, zu jedem Anlass.
 - **Zählwerk** — eigene kleine Counter für alles, worauf du sonst noch wartest.
 - **Fax / Stille Post** — dein Leben als Zeitstrahl, Jahrzehnt für Jahrzehnt.
 - **Ruhestand-Modus** — Auszeichnungen und Konfetti, sobald der Tag gekommen ist.
