@@ -98,18 +98,38 @@
        Gruß-Schlagzeile ist länger als die der Startseite und bräuchte
        zweispaltig unter 900 px mehr Breite, als die Textspalte hergibt. */
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 20px; }
-      /* Oma grüßt zuerst — aber als kompaktes Willkommensbild, damit die
-         Schlagzeile gleich danach kommt. */
-      .gruss-art { order: -1; }
-      .gruss-art video { max-height: 261px; }
-      .gruss-art figcaption { margin-top: -18px; }
+      /* Einspaltig führte die Oma den Hero an: eine freistehende Figur über
+         einer langen Textspalte — oben leer, unten schwer. Der Hero der
+         Startseite trägt ein breites, angeschnittenes Band, das die ganze
+         Bildschirmbreite füllt; hier steht nur eine Figur, und die füllt
+         keine. Also führt jetzt der Gruß — Anrede, Schlagzeile, Anhänger —
+         und die Oma steht mittendrin, so breit wie die Spalte hergibt, mit
+         ihrer Zeile darunter. Text über ihr, Text unter ihr.
+
+         `display: contents` löst die Textspalte auf, damit sie sich als
+         eigenes Rasterkind dazwischenschieben kann, ohne im Markup zu
+         wandern — über 900 px bleibt der zweispaltige Hero unberührt. Dafür
+         muss `gap` auf 0: die Abstände sind die eigenen Margins der Zeilen,
+         ein Raster-Gap käme oben drauf. */
+      .hero-grid { grid-template-columns: 1fr; gap: 0; }
+      .gruss-body { display: contents; }
+      .gruss-body .eyebrow { order: 1; margin-bottom: 12px; }
+      .gruss-body h1 { order: 2; }
+      .gruss-body .gruss-tag { order: 3; margin-top: 14px; }
+      .gruss-art { order: 4; margin-top: 6px; }
+      /* Breite statt Höhe: sie soll die Spalte ausfüllen, nicht eine feste
+         Höhe treffen. 280 px ist der gemessene Punkt, an dem die Store-Knöpfe
+         auf einem 812 px hohen Gerät gerade noch anschneiden — größer, und
+         der erste Bildschirm zeigt keinen Knopf mehr. */
+      .gruss-art video { max-height: none; width: 100%; max-width: 280px; }
+      .gruss-art figcaption { margin-top: -22px; }
+      .gruss-body .lede { order: 5; margin-top: 10px; }
+      .gruss-body .stores { order: 6; }
+      .gruss-body .price-note { order: 7; }
     }
     @media (max-width: 560px) {
       .hero { padding-top: 20px; padding-bottom: 32px; }
-      .hero-grid { gap: 14px; }
-      .gruss-art video { max-height: 192px; }
-      .gruss-art figcaption { margin-top: -13px; font-size: 14px; }
+      .gruss-art figcaption { font-size: 14px; }
     }
   </style>
 </head>
@@ -135,7 +155,7 @@
     <!-- ══ Gruß-Hero ═════════════════════════════════════════════════════ -->
     <section class="hero wrap" id="top">
       <div class="hero-grid">
-        <div>
+        <div class="gruss-body">
           <p class="eyebrow gold">Ein Gruß für dich</p>
           <h1 id="gruss-headline">Die Rente ist dir gegönnt. Zähl schon mal mit.</h1>
           <p class="gruss-tag" id="gruss-tag">Für dich — weil die Rente ruft und du längst zurückwinkst.</p>
